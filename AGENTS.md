@@ -61,3 +61,10 @@ Hero 改用透视相机。用户反馈初版透视过强，现垂直 FOV 20°，
 简单检查已完成：2560×1440 和 390×844 无横向溢出，头像宽高相等，浏览器无运行错误。旋转与拖回赛道的视觉交互交由用户复验。
 
 About Me 默认隐藏顶部 Home Page 按钮，从内容顶部开始；返回首页仍通过向上滚动或边缘切页完成。WebGL 四栋建筑已有简化碰撞体，脱轨小车连续检测墙面与屋顶并回弹。该碰撞仅在脱轨状态启用。
+
+## Selected Works 与外置内容（2026-10-15）
+Category 已按新 Figma 稿替换成 Selected Works，入口仍为 #work，脚本 selected-works.js、样式 selected-works.css。六分类配色以新稿为准，不套用 About 的四身份分类。项目配置与 Markdown 在 content/projects/，图片放各项目 images/，详见该目录 README.md。亡犬连接已提供的 Figma 简介；GA 演示有 MORE 的正文状态，其余待用户补内容。弹窗内滚轮/键盘不能触发背后页面切换。已安装固定版本 Marked 与 DOMPurify 并将运行文件存 vendor/，保持纯静态部署。不要自动填写未知 Steam 地址或编造项目内容。新修改仍先本地验收，未经新指令不推送。
+
+用户明确目标是桌面作品集，无需继续手机端适配或验收。SELECTED WORKS 标题仍左右顶满；最新反馈将 Filter 恢复为固定 24px，与卡片保持协调，不再随标题放大。项目卡片限制最大尺寸。About 与作品页向上箭头不再永久隐藏，而是默认滚动 76px 隐藏在视口上方，上滚可露出。
+
+弹窗最新改为固定 1330px 居中（窄桌面窗口收窄），不再两侧锁定 55px；顶部 55px、关闭按钮 30px 正圆，上右各 15px。CONCEPT 在 PRODUCT 前面。About Me 项目文字的编辑源为 content/about/projects.md，角色与分组由 Markdown 标题决定，编辑说明见 content/about/README.md；不要只改 HTML 中的回退副本。

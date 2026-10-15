@@ -4,8 +4,19 @@
   const top=document.querySelector('.edge-top'), bottom=document.querySelector('.edge-bottom');
   const position=document.querySelector('.page-position');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let current=0,locked=false,wheel=0,wheelTimer,drag=null;
+  let current=0,locked=false,wheel=0,wheelTimer,drag=null,lastInnerWheel=0;
   document.body.classList.add('screen-mode');
+  // Reserve scrollable space above each content page so its return link can be revealed.
+  screens.slice(1).forEach(screen=>{
+    screen.classList.add('return-page');
+    const content=document.createElement('div');content.className='return-content';
+    [...screen.children].filter(child=>!child.matches('.screen-arrow.up')).forEach(child=>content.append(child));
+    screen.append(content);
+  });
+  function resetScroll(index){
+    screens[index].scrollTop=index?parseFloat(getComputedStyle(screens[index]).getPropertyValue('--return-rail'))||76:0;
+    wheel=0;lastInnerWheel=0;
+  }
   function paint(index,animate=true){
     current=index;document.body.dataset.page=ids[index];screens.forEach((s,i)=>s.classList.toggle('about-active',i===index&&s.id==='about'));document.querySelector('.model-tooltip')?.setAttribute('hidden','');
     screens.forEach((s,i)=>{s.style.transition=animate?'':'none';s.style.transform=`translateY(${(i-index)*100}vh)`;s.style.opacity=i===index?'1':'0';s.inert=i!==index;s.setAttribute('aria-hidden',String(i!==index));});
@@ -14,16 +25,18 @@
     position.textContent=`${String(index+1).padStart(2,'0')} / 03 · ${['首页','About me','Category'][index]}`;
     document.querySelectorAll('header nav a').forEach(a=>a.setAttribute('aria-current',a.hash==='#'+ids[index]?'page':'false'));
   }
-  function go(index,history=true){if(index<0||index>2||locked)return;locked=true;if(index===1&&current!==1)screens[index].scrollTop=0;paint(index);if(history)window.history.pushState(null,'','#'+ids[index]);setTimeout(()=>locked=false,reduced?30:650)}
-  function hash(){const id=location.hash.slice(1);const index=id==='contact'?1:Math.max(0,ids.indexOf(id));paint(index,false);if(id==='contact')document.querySelector('#contact').scrollIntoView({block:'start'})}
+  function go(index,history=true){if(index<0||index>2||locked)return;locked=true;if(current!==index)resetScroll(index);paint(index);if(history)window.history.pushState(null,'','#'+ids[index]);setTimeout(()=>locked=false,reduced?30:650)}
+  function hash(){const id=location.hash.slice(1);const index=id==='contact'?1:Math.max(0,ids.indexOf(id));resetScroll(index);paint(index,false);if(id==='contact')document.querySelector('#contact').scrollIntoView({block:'start'})}
   document.addEventListener('click',e=>{const a=e.target.closest('a');if(!a||!a.hash||!['#home','#about','#work','#contact','#'].includes(a.getAttribute('href')))return;e.preventDefault();const id=a.hash.slice(1);const index=id==='contact'?1:Math.max(0,ids.indexOf(id));go(index);if(id==='contact')document.querySelector('#contact').scrollIntoView({block:'start',behavior:reduced?'instant':'smooth'})});
   window.addEventListener('popstate',hash);window.addEventListener('hashchange',hash);
   document.addEventListener('wheel',e=>{
     if(e.ctrlKey||e.target.closest('input'))return;
     const s=screens[current];const down=e.deltaY>0;
     const canScroll=down?s.scrollTop+s.clientHeight<s.scrollHeight-3:s.scrollTop>3;
-    if(canScroll)return;
+    if(canScroll){lastInnerWheel=performance.now();wheel=0;return;}
     e.preventDefault();if(locked)return;
+    // Finish revealing the return arrow before a new wheel gesture changes pages.
+    if(performance.now()-lastInnerWheel<220){lastInnerWheel=performance.now();return;}
     const delta=e.deltaMode===1?e.deltaY*16:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
     if(Math.sign(wheel)!==Math.sign(delta))wheel=0;
     wheel+=delta;clearTimeout(wheelTimer);wheelTimer=setTimeout(()=>wheel=0,180);
