@@ -1,0 +1,10 @@
+node_modules/
+work/
+outputs/
+references/
+.env
+.env.*
+!.env.example
+*.log
+Thumbs.db
+.DS_Store

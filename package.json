@@ -1,0 +1,1 @@
+{"name":"portfolio-website-prototype","private":true,"type":"module","scripts":{"check":"node --check webgl-hero.js"},"dependencies":{"three":"0.186.1"}}
