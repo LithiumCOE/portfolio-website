@@ -46,7 +46,7 @@
   function spring(letter,key,velocity,target,dt){letter[velocity]+=((target-letter[key])*125-letter[velocity]*14)*dt;letter[key]+=letter[velocity]*dt;}
   function tick(time){
     const dt=last?Math.min((time-last)/1000,.032):1/60;last=time;stroke*=Math.exp(-dt*7);
-    const active=!reduced.matches&&document.body.dataset.page==='home'&&!document.hidden,introAge=(time-introStart)/1000,introActive=active&&introAge<8;
+    const active=!reduced.matches&&document.body.dataset.page==='home'&&!document.hidden,introAge=(time-introStart)/1000,introActive=active&&introAge<6;
     let energy=0,hovering=false;
     for(const group of groups){
       const {root,letters,material,large}=group;
@@ -56,14 +56,14 @@
       for(const [index,letter] of letters.entries()){
         const localX=mouse.x-rect.left-letter.left,center=localX-letter.width/2,reach=large?Math.max(120,letter.width*1.3):55;
         const influence=inside?Math.exp(-Math.pow(center/reach,2)*2):0;
-        const waveAge=introAge-(large?2.6:4.4)-index*(large?.08:.04),wave=introActive&&waveAge>0?Math.sin(waveAge*6)*Math.exp(-waveAge*1.25):0;
+        const waveAge=introAge-(large?.5:1.15)-index*(large?.08:.04),wave=introActive&&waveAge>0?Math.sin(waveAge*6)*Math.exp(-waveAge*1.25):0;
         spring(letter,'x','vx',influence*clamp(stroke*.38+center*.025,-9,9)*strength,dt);
         spring(letter,'y','vy',(influence*-Math.min(3,Math.abs(stroke)*.1)-wave*4)*strength,dt);
         spring(letter,'angle','va',(influence*clamp(stroke*.15+center*.017,-5,5)+wave*3.5)*strength,dt);
         spring(letter,'twist','vt',(influence*clamp(stroke*.4+center*.045,-13,13)+wave*9)*strength,dt);
         letter.node.style.transform=`translate3d(${letter.x.toFixed(3)}px,${letter.y.toFixed(3)}px,0) rotateY(${letter.twist.toFixed(3)}deg) rotateZ(${letter.angle.toFixed(3)}deg)`;
         if(material){
-          const teaser=introActive&&introAge>2.9&&introAge<3.55&&!inside,materialX=teaser?rect.width*((introAge-2.9)/.65)-letter.left:localX;
+          const teaser=introActive&&introAge>.8&&introAge<1.2&&!inside,materialX=teaser?rect.width*((introAge-.8)/.4)-letter.left:localX;
           letter.node.style.setProperty('--material-x',materialX+'px');letter.node.style.setProperty('--material-y',teaser?'55%':mouse.y-rect.top+'px');
           letter.node.style.setProperty('--material-alpha',inside||teaser?'1':'0');letter.node.style.setProperty('--metal-position',clamp(50+center*.12,10,90)+'%');
         }

@@ -18,7 +18,7 @@
     try{await enter.finished;}catch{return;}
     if(token!==epoch)return;animations.delete(enter);schedule(reel);
   }
-  function sync(){stop();reels.forEach((reel,i)=>schedule(reel,8200+i*500));}
+  function sync(){stop();reels.forEach((reel,i)=>schedule(reel,3200+i*500));}
   new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['data-page']});
   document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);
   sync();

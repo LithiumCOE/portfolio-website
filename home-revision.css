@@ -34,12 +34,12 @@ body #home .hero-title-char::after{content:attr(data-char) / "";position:absolut
 /* Let the transparent WebGL foreground cross the lower edge of the editorial type. */
 .figma-layout #home{--home-editorial-shift:clamp(20px,4vh,60px)}
 .figma-layout #home .home-playground{z-index:0}
-body[data-page=home] .home-masthead{animation:home-copy-enter 1.2s 3.15s cubic-bezier(.22,1,.36,1) both}
-body[data-page=home] .home-word-left{animation:home-copy-enter 1.2s 3.35s cubic-bezier(.22,1,.36,1) both}
-body[data-page=home] .home-for{animation:home-copy-enter 1.2s 3.5s cubic-bezier(.22,1,.36,1) both}
-body[data-page=home] .home-word-right{animation:home-copy-enter 1.2s 3.65s cubic-bezier(.22,1,.36,1) both}
-body[data-page=home] #home .home-playground{animation:home-scene-enter 2.5s 4.95s cubic-bezier(.22,1,.36,1) both}
-body[data-page=home] #home>.screen-arrow{animation:home-copy-enter 1.2s 6.8s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] .home-masthead{animation:home-copy-enter .4s .75s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] .home-word-left{animation:home-copy-enter .4s .82s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] .home-for{animation:home-copy-enter .4s .89s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] .home-word-right{animation:home-copy-enter .4s .96s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] #home .home-playground{animation:home-scene-enter .65s 1.35s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] #home>.screen-arrow{animation:home-copy-enter .35s 1.65s cubic-bezier(.22,1,.36,1) both}
 @keyframes home-copy-enter{from{opacity:0;translate:0 24px;filter:blur(6px)}to{opacity:1;translate:0 0;filter:blur(0)}}
 @keyframes home-scene-enter{from{opacity:0;translate:0 38px}to{opacity:1;translate:0 0}}
 @media(prefers-reduced-motion:reduce){body[data-page=home] #home :is(.display-title,.home-masthead,.home-word-left,.home-word-right,.home-for,.home-playground,.screen-arrow){animation:none}}
@@ -59,6 +59,6 @@ body #home .home-word-stage .hero-physics-char{font-family:Michroma,sans-serif!i
 
 /* Title first, supporting copy second, the playable scene last. Translate stays
    independent of the pointer-driven transform on each letter. */
-body[data-page=home] #home>.display-title .hero-title-char{animation:home-letter-enter 1.35s calc(.2s + var(--entry-index)*.18s) cubic-bezier(.16,1,.3,1) both}
+body[data-page=home] #home>.display-title .hero-title-char{animation:home-letter-enter .42s calc(.04s + var(--entry-index)*.04s) cubic-bezier(.16,1,.3,1) both}
 @keyframes home-letter-enter{from{opacity:0;translate:0 .28em;filter:blur(9px)}to{opacity:1;translate:0 0;filter:blur(0)}}
 @media(prefers-reduced-motion:reduce){body[data-page=home] #home>.display-title .hero-title-char{animation:none}}
