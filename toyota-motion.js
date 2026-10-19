@@ -4,6 +4,16 @@ export function mountToyotaMotion(host,{reduced}){
   for(const page of pages){
     const canvas=page.querySelector('.toyota-ppt-canvas'),index=pages.indexOf(page);
     const q=id=>canvas.querySelector(`[data-node-id="279:${id}"]`);
+    // Align each reasoning column around the same vertical center in its row.
+    if(index===2){
+      for(const [top,columns] of [[373,[[2522,2518],[2520],[2550,2524]]],[673,[[2523,2519],[2521],[2552,2525]]]]){
+        columns.forEach((ids,column)=>{
+          const group=document.createElement('div');group.className='toyota-centered-cell';
+          group.style.cssText=`position:absolute;left:${[817,1193,1478][column]}px;top:${top}px;width:${[296,210,300][column]}px;height:233px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:18px`;
+          ids.forEach(id=>{const node=q(id);if(!node)return;node.style.position='relative';node.style.left='auto';node.style.top='auto';node.style.lineHeight='1.4';group.append(node);});canvas.append(group);
+        });
+      }
+    }
     let animations=[];
     const add=(node,frames,delay=0,duration=750)=>{if(node)animations.push(node.animate(frames,{delay,duration,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'}));};
     const reveal=(node,delay,x=0,y=16)=>add(node,[{opacity:0,translate:`${x}px ${y}px`},{opacity:1,translate:'0 0'}],delay);

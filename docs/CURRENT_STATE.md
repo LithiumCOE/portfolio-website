@@ -4,7 +4,7 @@
 
 ## 视觉与交互基线
 
-浅色纸感背景、黑色正文、按类别配色；普通文字统一本地完整 Noto Sans SC，大标题与 Home 轮播使用 Michroma。Toyota、SAIC 正文强调蓝色 #0093EE，关键词标签深蓝 #006FB5 配白字。SS 说明强调色 #B48400、标注点 #FFBB00。
+浅色纸感背景、黑色正文、按类别配色；普通文字统一本地完整 MiSans（Noto Sans SC 保留为后备，GA低保真继续使用Noto原字体），大标题与 Home 轮播使用 Michroma。Toyota、SAIC 正文强调蓝色 #0093EE，关键词标签深蓝 #006FB5 配白字。SS 说明强调色 #B48400、标注点 #FFBB00。
 
 Home、About、Selected Works 是独立画面；长内容先内部滚动，再触发切页。弹窗内部操作不应误触背后页面切换。网站主要面向桌面，不要求继续手机适配。
 

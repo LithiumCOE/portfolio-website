@@ -51,7 +51,7 @@ body[data-page=home] #home>.screen-arrow{animation:home-copy-enter .35s 1.65s cu
 /* Shared letter physics; only the name and Chinese signature reveal metal. */
 .hero-physics-char{position:relative;display:inline-block;transform-origin:50% 78%;vertical-align:baseline;will-change:transform}
 body #home .home-signature{font-weight:700}
-body #home .home-signature .hero-physics-char{font-family:'Noto Sans SC',sans-serif!important}
+body #home .home-signature .hero-physics-char{font-family:var(--content-font,'Noto Sans SC'),sans-serif!important}
 body #home .home-word-stage .hero-physics-char{font-family:Michroma,sans-serif!important}
 .hero-material-char{color:transparent;background:linear-gradient(165deg,#090d0e 10%,#252c2d 36%,#0c1011 51%,#202728 72%,#050708 93%);background-clip:text;-webkit-background-clip:text}
 .hero-material-char::after{content:attr(data-char) / "";position:absolute;inset:0;pointer-events:none;color:transparent;background:linear-gradient(118deg,#17242d,#aebdc4 13%,#faffff 20%,#263c49 27%,#d7b98a 35%,#fff9e4 40%,#503c2b 46%,#b8d8e6 53%,#faffff 58%,#24485c 64%,#a3bac5 73%,#fff8df 82%,#2b393b);background-size:180% 160%;background-position:var(--metal-position,50%) 50%;background-clip:text;-webkit-background-clip:text;mask-image:radial-gradient(ellipse 55px 48px at var(--material-x,-300px) var(--material-y,50%),#000 20%,transparent 100%);opacity:var(--material-alpha,0);transition:opacity .14s}

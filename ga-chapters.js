@@ -30,7 +30,11 @@ export function mountGaChapters(host,{onPreview,reduced}){
   ['y','x'].forEach(direction=>{const clip=document.createElement('div');clip.className='ga-design-axis-clip ga-design-axis-'+direction;const reveal=document.createElement('div');reveal.className='ga-design-axis-reveal';reveal.append(axisImage.cloneNode(true));clip.append(reveal);axis.append(clip);});
   // A continuous, locally scrollable low-fidelity article: no tabs or whole-page shrinking.
   contents[3].classList.add('ga-lowfi','ga-lowfi-long');pages[3].classList.add('ga-lowfi-page');
-  ['254:183','254:182','254:208'].forEach(id=>{const panel=take(id);panel.classList.add('ga-lowfi-panel');panel.style.cssText='position:relative;width:1250px;height:399px';contents[3].append(panel);});
+  ['254:183','254:182','254:208'].forEach(id=>{const panel=take(id);panel.classList.add('ga-lowfi-panel');panel.style.cssText='position:relative;width:1250px;height:399px';if(id==='254:182'){
+      const diagram=panel.querySelector('[data-node-id="253:4948"]');
+      if(diagram){const image=document.createElement('img');image.src=new URL('./content/projects/ga/images/inventory-lowfi-original.png',import.meta.url).href;image.alt='仓库低保真原稿，保留全部编号标注';image.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:contain;margin:0;background:none;aspect-ratio:auto';diagram.replaceChildren(image);}
+    }
+    contents[3].append(panel);});
   const lowfiBox=pages[3].querySelector('.ga-chapter-fit');
   const lowfiTrack=document.createElement('div');lowfiTrack.className='ga-lowfi-track';lowfiBox.append(lowfiTrack);lowfiTrack.append(contents[3]);
   contents[4].classList.add('ga-highfi','ga-highfi-stacked');

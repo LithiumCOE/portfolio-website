@@ -1,4 +1,19 @@
-/* Shared site typography. Display mastheads retain their existing Michroma face. */
+/* Local MiSans comparison. Existing sizes, weights and line heights stay unchanged. */
 @font-face{font-family:'Noto Sans SC';src:url('assets/fonts/NotoSansSC-Full-VF.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
-body,body :where(p,span,li,dt,dd,div,a,button,input,textarea,select,label,output,small,strong,em,blockquote,figcaption,table,th,td,h1,h2,h3,h4,h5,h6){font-family:'Noto Sans SC',sans-serif!important}
+@font-face{font-family:'MiSans';src:url('assets/fonts/MiSans-VF.woff2') format('woff2');font-weight:150 700;font-style:normal;font-display:swap}
+body{--content-font:'MiSans'}
+body,body :where(p,span,li,dt,dd,div,a,button,input,textarea,select,label,output,small,strong,em,blockquote,figcaption,table,th,td,h1,h2,h3,h4,h5,h6){font-family:'MiSans','Noto Sans SC',sans-serif!important}
 body .display-title,body .display-title *,body .selected-title,body .selected-title *{font-family:Michroma,sans-serif!important}
+
+/* MiSans uses native axis values: Regular 330, Demi 450, Semi 520, Bold 630.
+   Keep existing CSS layout/weight semantics, but use the intended optical grades. */
+body{font-variation-settings:'wght' 330}
+body :is(h1,h2,h3,h4,h5,h6,strong,b,.work-filter,.identity-button,.project-category){font-variation-settings:'wght' 520}
+body :is([style*="font-weight:400"],[style*="font-weight: 400"]){font-variation-settings:'wght' 330}
+body :is([style*="font-weight:500"],[style*="font-weight: 500"]){font-variation-settings:'wght' 380}
+body :is([style*="font-weight:600"],[style*="font-weight: 600"]){font-variation-settings:'wght' 450}
+body :is([style*="font-weight:700"],[style*="font-weight: 700"]){font-variation-settings:'wght' 520}
+body :is([style*="font-weight:800"],[style*="font-weight: 800"]){font-variation-settings:'wght' 580}
+body :is([style*="font-weight:900"],[style*="font-weight: 900"]){font-variation-settings:'wght' 630}
+/* Original diagram typography is intentionally independent of the MiSans trial. */
+body .ga-lowfi-panel,body .ga-lowfi-panel *{font-family:'Noto Sans SC',sans-serif!important;font-variation-settings:normal!important}
