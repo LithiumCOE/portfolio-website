@@ -143,10 +143,12 @@ async function expandFromCard(tile,source){
   ],timing);
   const turn=cover.animate([
     {transform:'rotateY(0deg)',opacity:1},
-    {transform:'rotateY(-52deg)',opacity:0,offset:.45},
+    {transform:'rotateY(-24deg)',opacity:1,offset:.28},
+    {transform:'rotateY(-65deg)',opacity:.85,offset:.6},
+    {transform:'rotateY(-96deg)',opacity:.25,offset:.85},
     {transform:'rotateY(-115deg)',opacity:0}
   ],timing);
-  const fade=preview.animate([{opacity:1},{opacity:0}],{duration:240,easing:'ease-out',fill:'forwards'});
+  const fade=preview.animate([{opacity:1},{opacity:1,offset:.2},{opacity:.78,offset:.55},{opacity:0}],{duration:680,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
   bookAnimations=[page,travel,turn,fade];morphAnimation=travel;
   try{await Promise.all([page.finished,travel.finished,turn.finished]);}catch{return;}
   if(id!==motionId)return;
