@@ -76,7 +76,7 @@ function setMedia(project){
   }else setGallery(project);
 }
 let gallery=[],imageIndex=0;
-let morphAnimation=null,morphElement=null,motionId=0,closing=false;
+let morphAnimation=null,morphElement=null,motionId=0,closing=false,bookAnimations=[];
 const motionReduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 const markdownCache=new Map(),imageCache=new Map();
 let preparing=false;
@@ -105,7 +105,7 @@ function warmProject(project){
     ...(project.gallery||[]).map(image=>typeof image==='string'?image:image.src).filter(Boolean).map(path=>preloadImage(relativeUrl(path)))
   ]);
 }
-function clearMorph(){morphAnimation?.cancel();morphAnimation=null;morphElement?.remove();morphElement=null;}
+function clearMorph(){bookAnimations.forEach(animation=>animation.cancel());bookAnimations=[];morphAnimation?.cancel();morphAnimation=null;morphElement?.remove();morphElement=null;}
 function createMorph(tile,rect){
   const element=document.createElement('div');element.className='project-morph';element.setAttribute('aria-hidden','true');
   const preview=tile.cloneNode(true);preview.classList.remove('is-opening-source','is-muted');preview.classList.add('project-morph-card');
@@ -118,25 +118,37 @@ async function expandFromCard(tile,source){
   const id=++motionId;closing=false;pageTransition?.cancel();pageTransition=null;pageSwitch=false;clearTimeout(finalTimer);finalTimer=null;clearTimeout(pageWheelTimer);pageWheel=0;clearMorph();modal.dataset.motion='opening';
   if(motionReduced()){modal.classList.add('is-visible');modal.dataset.motion='open';return;}
   const target=sheet.getBoundingClientRect();
-  // Only morph the card surface. Its text fades out without being stretched.
+  // The card is the closed book: size, position and cover hinge share one clock.
   const {element,preview}=createMorph(tile,source);
-  tile.classList.add('is-opening-source');modal.classList.add('is-morphing');
-  requestAnimationFrame(()=>{if(id===motionId)modal.classList.add('is-visible');});
-  preview.animate([{opacity:1},{opacity:0}],{duration:120,fill:'forwards'});
-  morphAnimation=element.animate([
-    {...rectangleFrame(source),borderRightWidth:'5px',borderBottomWidth:'6px'},
-    {...rectangleFrame(target),borderRightWidth:'0px',borderBottomWidth:'0px'}
-  ],{duration:440,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
-  try {await morphAnimation.finished;}catch{return;}
-  if(id!==motionId)return;
-  // Keep the opaque sheet underneath throughout the handoff. Fading the
-  // entire sheet would expose the dark backdrop for a frame.
+  element.classList.add('project-book');
+  Object.assign(element.style,rectangleFrame(target));
+  preview.style.width=target.width+'px';preview.style.height=target.height+'px';
+  const coverScene=preview.querySelector('.work-cover-scene');
+  if(coverScene)coverScene.style.transform=`scale(${target.width/1100},${target.height/1400})`;
+  const cover=document.createElement('div');cover.className='project-book-cover';
+  const face=document.createElement('div');face.className='project-book-face';
+  face.append(preview);cover.append(face);element.append(cover);
+  tile.classList.add('is-opening-source');
   modal.classList.remove('is-morphing');
-  for(const section of sheet.children){
-    section.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:300,easing:'ease-out'});
-  }
-  morphAnimation=element.animate([{opacity:1},{opacity:0}],{duration:220,easing:'ease-out',fill:'forwards'});
-  try {await morphAnimation.finished;}catch{return;}
+  requestAnimationFrame(()=>{if(id===motionId)modal.classList.add('is-visible');});
+  const timing={duration:900,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'};
+  // The real inner page expands underneath its cover from exactly the same card bounds.
+  const page=sheet.animate([
+    {transformOrigin:'top left',transform:`translate(${source.left-target.left}px,${source.top-target.top}px) scale(${source.width/target.width},${source.height/target.height})`},
+    {transformOrigin:'top left',transform:'translate(0,0) scale(1,1)'}
+  ],timing);
+  const travel=element.animate([
+    {transform:`translate(${source.left-target.left}px,${source.top-target.top}px) scale(${source.width/target.width},${source.height/target.height})`},
+    {transform:'translate(0,0) scale(1,1)'}
+  ],timing);
+  const turn=cover.animate([
+    {transform:'rotateY(0deg)',opacity:1},
+    {transform:'rotateY(-52deg)',opacity:0,offset:.45},
+    {transform:'rotateY(-115deg)',opacity:0}
+  ],timing);
+  const fade=preview.animate([{opacity:1},{opacity:0}],{duration:240,easing:'ease-out',fill:'forwards'});
+  bookAnimations=[page,travel,turn,fade];morphAnimation=travel;
+  try{await Promise.all([page.finished,travel.finished,turn.finished]);}catch{return;}
   if(id!==motionId)return;
   clearMorph();modal.dataset.motion='open';
 }
@@ -230,6 +242,23 @@ function watchEntrance(){
   new MutationObserver(syncEntrance).observe(screen,{attributes:true,attributeFilter:['aria-hidden']});
   syncEntrance();
 }
+const coverResize=new ResizeObserver(entries=>{for(const entry of entries)entry.target.style.setProperty('--cover-scale',(entry.borderBoxSize?.[0]?.inlineSize||entry.contentRect.width)/1100);});
+function addProjectCover(tile,cover){
+  tile.classList.add('has-cover');tile.dataset.coverNode=cover.node;
+  const layer=document.createElement('div');layer.className='work-cover';layer.setAttribute('aria-hidden','true');
+  const scene=document.createElement('div');scene.className='work-cover-scene';
+  const crop=document.createElement('div');crop.className='work-cover-crop';
+  const place=(element,bounds)=>{['left','top','width','height'].forEach((key,index)=>element.style[key]=bounds[index]+'px');};
+  place(crop,cover.bounds);
+  const image=document.createElement('img');image.className='work-cover-image';image.src=new URL(cover.src,import.meta.url).href;image.alt='';image.decoding='async';image.style.objectFit=cover.fit||'cover';
+  if(cover.imageBounds){['left','top','width','height'].forEach((key,index)=>image.style[key]=cover.imageBounds[index]+'%');}
+  crop.append(image);
+  if(cover.tint){const tint=document.createElement('div');tint.className='work-cover-tint';tint.style.opacity=cover.tint;crop.append(tint);}
+  scene.append(crop);
+  if(cover.logo){const logo=document.createElement('img');logo.className='work-cover-logo';logo.src=new URL(cover.logo.src,import.meta.url).href;logo.alt='';logo.width=cover.logo.bounds[2];logo.height=cover.logo.bounds[3];place(logo,cover.logo.bounds);scene.append(logo);}
+  layer.append(scene);tile.prepend(layer);coverResize.observe(tile);
+}
+
 function renderProjects(){
   categories.forEach((category,index)=>{
     if(index){const separator=document.createElement('span');separator.textContent='·';separator.setAttribute('aria-hidden','true');filters.append(separator);}
@@ -242,6 +271,7 @@ function renderProjects(){
     if(project.home){tile.classList.add('is-current');}else{tile.type='button';tile.setAttribute('aria-haspopup','dialog');tile.addEventListener('click',()=>showProject(project,tile));}
     const title=document.createElement('h3');title.textContent=project.title;title.style.whiteSpace='pre-line';
     const description=document.createElement('p');description.textContent=project.description;tile.append(title,description);
+    if(project.cover)addProjectCover(tile,project.cover);
     if(project.home){const back=document.createElement('a');back.className='portfolio-return';back.href='#home';back.setAttribute('aria-label','返回首页');back.innerHTML=`<span>返回Home Page</span><img src="${asset('98df61b88da5b1d524d653a1d44874b21bd47542.svg')}" width="141.5" height="15.5" alt="">`;tile.append(back);}
     grid.append(tile);
   });

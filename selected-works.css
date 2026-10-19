@@ -497,3 +497,38 @@
 
 /* Use one complete system CJK family, avoiding mixed subset-font glyph weights. */
 
+
+/* Local book-opening experiment: solid sheet underneath a hinged front cover. */
+.project-morph.project-book{overflow:visible;background:transparent;border:0;perspective:2200px;perspective-origin:30% 45%}
+.project-book-cover{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;background:#efe6d5;border-right:5px solid #d3c6ab;border-bottom:6px solid #c9b99a;box-shadow:12px 12px 30px #0003;backface-visibility:visible}
+.project-book-face{position:absolute;inset:0;overflow:hidden;background:linear-gradient(90deg,#b6a88b 0,#e1d5bd 8px,#efe6d5 22px);border-left:2px solid #b5a382}
+.project-book-face::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#0002,transparent 6%,transparent 88%,#fff3)}
+.project-book-face .project-morph-card{top:0;left:0;translate:0 0;border:0;box-shadow:none}
+.project-book-shade{position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(90deg,#2d2118aa,transparent 85%)}
+
+/* A resting card reads as a bound cover; supporting copy reveals on hover/focus. */
+.work-tile:not(.is-current){padding-left:24px;box-shadow:inset 5px 0 0 #c6b79b,inset 8px 0 0 #ffffff50}
+.work-tile:not(.is-current)>p{opacity:0;translate:0 9px;transition:opacity .22s,translate .22s}
+.work-tile:not(.is-current):is(:hover,:focus-visible)>p{opacity:1;translate:0 0}
+.work-tile:not(.is-current)>h3{transition:translate .22s}
+.work-tile:not(.is-current):is(:hover,:focus-visible)>h3{translate:0 -3px}
+.project-book-face .project-morph-card>p{opacity:1;translate:0 0}
+@media(prefers-reduced-motion:reduce){.work-tile:not(.is-current)>p,.work-tile:not(.is-current)>h3{transition:none}}
+
+/* Figma cover compositions: native 1100 × 1400 stage, scaled as one surface. */
+.work-tile.has-cover{background:#fff;border:0;box-shadow:4px 5px 0 #c9b99a}
+.work-cover{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none;background:#fff;transition:filter .3s}
+.work-cover-scene{position:absolute;left:0;top:0;width:1100px;height:1400px;transform:scale(var(--cover-scale, .2));transform-origin:top left}
+.work-cover-crop{position:absolute;overflow:hidden}
+.work-cover-crop .work-cover-image{position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;display:block}
+.work-cover-logo{position:absolute;max-width:none;display:block}
+.work-cover-tint{position:absolute;inset:0;background:#000}
+.work-tile.has-cover::before{left:3.63636%;top:2.85714%;right:auto;width:13.63636%;height:10.714286%;z-index:4}
+.work-tile.has-cover::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:#101820a8;opacity:0;transition:opacity .3s}
+.work-tile.has-cover>h3,.work-tile.has-cover>p{position:relative;z-index:2;color:#fff;opacity:0;translate:0 8px;transition:opacity .25s,translate .25s;text-shadow:0 1px 4px #0005}
+.work-tile.has-cover:is(:hover,:focus-visible)>.work-cover{filter:blur(4px) brightness(.75)}
+.work-tile.has-cover:is(:hover,:focus-visible)::after{opacity:1}
+.work-tile.has-cover:is(:hover,:focus-visible)>h3,.work-tile.has-cover:is(:hover,:focus-visible)>p{opacity:1;translate:0 0}
+.project-book-face .project-morph-card.has-cover>h3,.project-book-face .project-morph-card.has-cover>p{opacity:0}
+.project-book-face .project-morph-card.has-cover::after{opacity:0}
+@media(prefers-reduced-motion:reduce){.work-cover,.work-tile.has-cover::after,.work-tile.has-cover>h3,.work-tile.has-cover>p{transition:none}}

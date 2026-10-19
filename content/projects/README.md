@@ -98,3 +98,7 @@ PPT/Figma 交付应读取真实文字与结构，转为原生 HTML/CSS，去掉 
 
 ## 2026-10-18 Preview 更新
 SS 使用 ss/images/SS1.png；Toyota 使用 toyota1–4.png。SAIC gallery 第一项为托管视频，其后为 saic1–3.png；获奖证书另列右侧。gallery 支持 {"type":"video","url":"https://go.plvideo.cn/...","title":"视频名称"}。视频只在打开对应媒体项时加载，切换图片/关闭卡片时清空播放器。MCI 为 without MORE，仅视频，不再引用 body.md。R6S 项目与旧列表入口已删除。四项目的简介以各自 intro.md 为编辑源，按当前 Figma RichText 保留文案、加粗与换行。
+
+## Selected Works 图片封面（2026-10-19）
+
+十个项目的 cover 字段独立于 Preview 的 gallery；素材在 assets/covers/。cover.src、logo.src 相对网站根目录，其余正文/图库相对路径规则保持不变。封面保留Figma的1100×1400裁切与左上色块。默认隐藏全部标题说明，Hover/焦点时图片模糊压暗并显示白字；作品集网站返回卡片维持原样。修改位置时同步核对bounds及imageBounds，不要简单用gallery首图替换。

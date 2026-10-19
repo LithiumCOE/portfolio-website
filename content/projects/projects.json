@@ -61,6 +61,17 @@
         "label": "Steam 链接",
         "url": "https://store.steampowered.com/app/3686990/_Dead_Dog/",
         "icon": "steam"
+      },
+      "cover": {
+        "node": "304:26",
+        "src": "assets/covers/9a8fe65180d9560598a6124081df9258c3021735.png",
+        "bounds": [
+          -210,
+          0,
+          2005,
+          1400
+        ],
+        "fit": "cover"
       }
     },
     {
@@ -84,6 +95,17 @@
         "label": "Steam 链接",
         "url": "https://store.steampowered.com/app/2707050/Chill_Out_The_Art_of_Chaos/",
         "icon": "steam-gold"
+      },
+      "cover": {
+        "node": "304:1726",
+        "src": "assets/covers/8b763ca8140d53041afbdf54f41a49674d417fd4.png",
+        "bounds": [
+          -178,
+          0,
+          2998,
+          1401
+        ],
+        "fit": "cover"
       }
     },
     {
@@ -115,6 +137,17 @@
         "label": "视频链接(精准空降)",
         "url": "https://www.bilibili.com/video/BV1tSYx66EvP?t=188.9",
         "icon": "green"
+      },
+      "cover": {
+        "node": "304:1732",
+        "src": "assets/covers/dab422dd328bcd46095552cfc5b403034d4066d1.png",
+        "bounds": [
+          -693,
+          0,
+          2487,
+          1399
+        ],
+        "fit": "cover"
       }
     },
     {
@@ -139,7 +172,33 @@
         }
       ],
       "modalTitle": "相聚，相乐",
-      "categoryLabel": "概念设计"
+      "categoryLabel": "概念设计",
+      "cover": {
+        "node": "304:1747",
+        "src": "assets/covers/2071802aa4c7859593ca151e4fa8fed565bb1e4a.png",
+        "bounds": [
+          -714,
+          -142,
+          3103,
+          1747
+        ],
+        "fit": "cover",
+        "imageBounds": [
+          9.04,
+          8.56,
+          81.84,
+          79.6
+        ],
+        "logo": {
+          "src": "assets/covers/52da11df362e84b123f83936f36b7df7d45457ea.svg",
+          "bounds": [
+            118,
+            1050,
+            865,
+            300
+          ]
+        }
+      }
     },
     {
       "id": "web",
@@ -158,6 +217,17 @@
         "label": "跳转链接",
         "url": "https://www.surgicalscalpels.com/",
         "icon": "red"
+      },
+      "cover": {
+        "node": "304:1715",
+        "src": "assets/covers/c97b16e898e142394911070dd7122e245d4de440.png",
+        "bounds": [
+          -1221,
+          0,
+          3542,
+          1992
+        ],
+        "fit": "cover"
       }
     },
     {
@@ -178,6 +248,17 @@
         "url": "playgrounds/planet-engine/",
         "local": true,
         "icon": "red"
+      },
+      "cover": {
+        "node": "304:1720",
+        "src": "assets/covers/cac2f0197044f898fbbafe053d57ba8979f9c330.png",
+        "bounds": [
+          -622,
+          0,
+          2344,
+          2791
+        ],
+        "fit": "cover"
       }
     },
     {
@@ -204,6 +285,17 @@
         "label": "机核网链接",
         "url": "https://www.gcores.com/games/81216",
         "icon": "orange"
+      },
+      "cover": {
+        "node": "304:31",
+        "src": "assets/covers/be23ef56f49e06fc23209c313bb0c68c7e45a629.png",
+        "bounds": [
+          -51,
+          0,
+          2491,
+          1401
+        ],
+        "fit": "cover"
       }
     },
     {
@@ -219,7 +311,19 @@
         }
       ],
       "modalTitle": "代号SS",
-      "categoryLabel": "游戏UIUX"
+      "categoryLabel": "游戏UIUX",
+      "cover": {
+        "node": "304:1741",
+        "src": "assets/covers/5100f488edea2b6c76077d6e9ed5931b244a79cd.png",
+        "bounds": [
+          -709,
+          0,
+          2106,
+          1400
+        ],
+        "fit": "cover",
+        "tint": 0.07
+      }
     },
     {
       "id": "saic",
@@ -251,6 +355,26 @@
         "label": "获奖证书",
         "width": 209,
         "height": 302
+      },
+      "cover": {
+        "node": "304:1753",
+        "src": "assets/covers/71af4cc83787e6112b240e7f64d87375148f6df8.png",
+        "bounds": [
+          -924,
+          -131,
+          2949,
+          1661
+        ],
+        "fit": "contain",
+        "logo": {
+          "src": "assets/covers/8221323ff11d2e8773ff57ecf5878ee30c3edd49.svg",
+          "bounds": [
+            353,
+            956,
+            394,
+            394
+          ]
+        }
       }
     },
     {
@@ -264,6 +388,17 @@
       "video": {
         "url": "https://go.plvideo.cn/front/video/preview?vid=p672b1c5c8023430762179eed5c38cc9_p",
         "title": "MCI老人认知提升产品设计演示视频"
+      },
+      "cover": {
+        "node": "304:1779",
+        "src": "assets/covers/1553b42bbc5652bd76bb772d105c025b4222fb79.png",
+        "bounds": [
+          -821,
+          0,
+          2743,
+          1542
+        ],
+        "fit": "cover"
       }
     },
     {
