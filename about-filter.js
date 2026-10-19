@@ -33,18 +33,33 @@
   announcement.className = 'filter-announcement';
   announcement.setAttribute('role', 'status');
   group.after(announcement);
-  let selected = null, demoTimer = null, demoRunning = false;
+  let selected = null, previewRole = null, demoTimer = null, demoRunning = false;
+  function paintProjects() {
+    projects.forEach(project => {
+      const preview=project.dataset.role===previewRole;
+      project.classList.toggle('project-hover',preview);
+      project.classList.toggle('project-muted',!!selected && project.dataset.role!==selected && !preview);
+      project.classList.toggle('project-highlight',project.dataset.role===selected);
+    });
+  }
   function select(role, announce=false) {
     selected=role;
     buttons.forEach(item => item.setAttribute('aria-pressed', String(item.dataset.role === selected)));
-    projects.forEach(project => {
-      project.classList.toggle('project-muted', !!selected && project.dataset.role !== selected);
-      project.classList.toggle('project-highlight', project.dataset.role === selected);
-    });
+    paintProjects();
     const count = projects.filter(project => project.dataset.role === selected).length;
     if(announce) announcement.textContent = selected ? `${buttons.find(button=>button.dataset.role===selected).textContent}：已高亮 ${count} 个项目` : '已恢复全部项目';
   }
   function stopDemo() { clearTimeout(demoTimer);demoTimer=null;demoRunning=false; }
+  function preview(role) {
+    if(demoRunning){stopDemo();select(null);}
+    previewRole=role;paintProjects();
+  }
+  buttons.forEach(button=>{
+    button.addEventListener('pointerenter',()=>preview(button.dataset.role));
+    button.addEventListener('pointerleave',()=>preview(button.matches(':focus-visible')?button.dataset.role:null));
+    button.addEventListener('focus',()=>{if(button.matches(':focus-visible'))preview(button.dataset.role);});
+    button.addEventListener('blur',()=>preview(null));
+  });
   about.addEventListener('about-projects-updated',()=>{
     projects=[...about.querySelectorAll('.projects-list li')];
     select(selected);
@@ -54,7 +69,7 @@
     stopDemo();select(next,true);
   }));
   function startDemo() {
-    stopDemo();select(null);
+    previewRole=null;stopDemo();select(null);
     if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     demoRunning=true;
     let index=0;
@@ -70,7 +85,7 @@
     const next=about.getAttribute('aria-hidden')==='false';
     if(next===active)return;
     active=next;
-    if(active)startDemo();else{stopDemo();select(null);}
+    if(active)startDemo();else{previewRole=null;stopDemo();select(null);}
   }
   new MutationObserver(syncEntrance).observe(about,{attributes:true,attributeFilter:['aria-hidden']});
   syncEntrance();

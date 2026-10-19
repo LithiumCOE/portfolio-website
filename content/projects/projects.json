@@ -1,24 +1,277 @@
 {
   "categories": [
-    {"id":"indie","label":"INDIE","color":"#ce6000"},
-    {"id":"game","label":"GAME UIUX","color":"#b48400"},
-    {"id":"visual","label":"VISUAL","color":"#58a100"},
-    {"id":"concept","label":"CONCEPT","color":"#0093ee"},
-    {"id":"product","label":"PRODUCT","color":"#0089a8"},
-    {"id":"web","label":"WEB","color":"#980003"}
+    {
+      "id": "indie",
+      "label": "INDIE",
+      "color": "#ce6000"
+    },
+    {
+      "id": "game",
+      "label": "GAME UIUX",
+      "color": "#b48400"
+    },
+    {
+      "id": "visual",
+      "label": "VISUAL",
+      "color": "#58a100"
+    },
+    {
+      "id": "concept",
+      "label": "CONCEPT",
+      "color": "#0093ee"
+    },
+    {
+      "id": "product",
+      "label": "PRODUCT",
+      "color": "#0089a8"
+    },
+    {
+      "id": "web",
+      "label": "WEB",
+      "color": "#980003"
+    }
   ],
   "projects": [
-    {"id":"wangquan","title":"亡犬","subtitle":"与白石组","category":"indie","categoryLabel":"独立游戏项目","description":"独立游戏项目","intro":"wangquan/intro.md","gallery":[{"src":"wangquan/images/DeadDog1.png"},{"src":"wangquan/images/DeadDog2.png"},{"src":"wangquan/images/DeadDog3.png"},{"src":"wangquan/images/DeadDog4.png"},{"src":"wangquan/images/DeadDog5.png"}],"external":{"label":"Steam 链接","url":"https://store.steampowered.com/app/3686990/_Dead_Dog/","icon":"steam"}},
-    {"id":"ga","title":"GA","modalTitle":"代号：GA","category":"game","categoryLabel":"游戏UIUX","description":"创意射击游戏\n全流程UIUX","intro":"ga/intro.md","body":"ga/body.md","gallery":[]},
-    {"id":"pda","title":"流浪地球望日\n首曝PV","category":"visual","description":"3DUI设计","intro":"pda/intro.md","gallery":[]},
-    {"id":"toyota","title":"相聚，相乐\n——家庭SUV概念","category":"concept","description":"广汽丰田校企合作项目提案","intro":"toyota/intro.md","body":"toyota/body.md","gallery":[]},
-    {"id":"web","title":"柳叶刀工作室\n官网重新设计","category":"web","description":"工作室官网信息交互与高保真设计","intro":"web/intro.md","gallery":[]},
-    {"id":"physics","title":"行星发动机模拟网页原型","category":"web","description":"玩法系统设计与高保真网页设计与前端开发","intro":"physics/intro.md","gallery":[]},
-    {"id":"mel","title":"MEL","category":"indie","description":"独立游戏原型","intro":"mel/intro.md","body":"mel/body.md","gallery":[]},
-    {"id":"ss","title":"SS","category":"game","description":"创意设计游戏\n全流程UIUX","intro":"ss/intro.md","body":"ss/body.md","gallery":[]},
-    {"id":"r6s","title":"R6S流程优化","category":"game","description":"现有游戏流程优化","intro":"r6s/intro.md","body":"r6s/body.md","gallery":[]},
-    {"id":"saic","title":"乐趣衍化\n——MG品牌策略","category":"concept","description":"第十二届上汽设计国际挑战赛策略与传达赛道  优秀奖","intro":"saic/intro.md","body":"saic/body.md","gallery":[]},
-    {"id":"mci","title":"MCI老人认知提升产品设计","category":"product","description":"包含软硬件设计、实体交互设计的毕业设计方案","intro":"mci/intro.md","body":"mci/body.md","gallery":[]},
-    {"id":"portfolio","title":"作品集网站","category":"web","description":"你已身在其中:)","home":true}
+    {
+      "id": "wangquan",
+      "title": "亡犬",
+      "subtitle": "与白石组",
+      "category": "indie",
+      "categoryLabel": "独立游戏项目",
+      "description": "独立游戏项目",
+      "intro": "wangquan/intro.md",
+      "gallery": [
+        {
+          "src": "wangquan/images/DeadDog1.png"
+        },
+        {
+          "src": "wangquan/images/DeadDog2.png"
+        },
+        {
+          "src": "wangquan/images/DeadDog3.png"
+        },
+        {
+          "src": "wangquan/images/DeadDog4.png"
+        },
+        {
+          "src": "wangquan/images/DeadDog5.png"
+        }
+      ],
+      "external": {
+        "label": "Steam 链接",
+        "url": "https://store.steampowered.com/app/3686990/_Dead_Dog/",
+        "icon": "steam"
+      }
+    },
+    {
+      "id": "ga",
+      "title": "GA",
+      "modalTitle": "代号GA",
+      "category": "game",
+      "categoryLabel": "游戏UIUX",
+      "description": "创意射击游戏\n全流程UIUX",
+      "intro": "ga/intro.md",
+      "body": "ga/body.md",
+      "gallery": [
+        {
+          "src": "ga/images/92e77bf001e90777a5ea5f7d11edf5d2aecdfa83.png"
+        },
+        {
+          "src": "ga/images/f7dadcdb689ffb0001c509f004098284af69e0f0.png"
+        }
+      ],
+      "external": {
+        "label": "Steam 链接",
+        "url": "https://store.steampowered.com/app/2707050/Chill_Out_The_Art_of_Chaos/",
+        "icon": "steam-gold"
+      }
+    },
+    {
+      "id": "pda",
+      "title": "流浪地球望日\n首曝PV",
+      "category": "visual",
+      "description": "3DUI设计",
+      "intro": "pda/intro.md",
+      "gallery": [
+        {
+          "src": "pda/images/pda1.png"
+        },
+        {
+          "src": "pda/images/pda2.png"
+        },
+        {
+          "src": "pda/images/pda3.png"
+        },
+        {
+          "src": "pda/images/pda5.png"
+        },
+        {
+          "src": "pda/images/pda4.png"
+        }
+      ],
+      "modalTitle": "流浪地球望日首曝PV",
+      "categoryLabel": "3DUI设计",
+      "external": {
+        "label": "视频链接(精准空降)",
+        "url": "https://www.bilibili.com/video/BV1tSYx66EvP?t=188.9",
+        "icon": "green"
+      }
+    },
+    {
+      "id": "toyota",
+      "title": "相聚，相乐\n——家庭SUV概念",
+      "category": "concept",
+      "description": "广汽丰田校企合作项目提案",
+      "intro": "toyota/intro.md",
+      "body": "toyota/body.md",
+      "gallery": [
+        {
+          "src": "toyota/images/toyota1.png"
+        },
+        {
+          "src": "toyota/images/toyota2.png"
+        },
+        {
+          "src": "toyota/images/toyota3.png"
+        },
+        {
+          "src": "toyota/images/toyota4.png"
+        }
+      ],
+      "modalTitle": "相聚，相乐",
+      "categoryLabel": "概念设计"
+    },
+    {
+      "id": "web",
+      "title": "柳叶刀工作室\n官网重新设计",
+      "category": "web",
+      "description": "工作室官网信息交互与高保真设计",
+      "modalTitle": "柳叶刀工作室官网",
+      "categoryLabel": "网页设计",
+      "intro": "web/intro.md",
+      "gallery": [
+        {
+          "src": "web/images/web1.png"
+        }
+      ],
+      "external": {
+        "label": "跳转链接",
+        "url": "https://www.surgicalscalpels.com/",
+        "icon": "red"
+      }
+    },
+    {
+      "id": "physics",
+      "title": "行星发动机模拟网页原型",
+      "category": "web",
+      "description": "玩法系统设计与高保真网页设计与前端开发",
+      "intro": "physics/intro.md",
+      "gallery": [],
+      "modalTitle": "行星发动机模拟器",
+      "categoryLabel": "网页设计",
+      "video": {
+        "url": "https://go.plvideo.cn/front/video/preview?vid=p672b1c5c86df047d0c09195a96b72fe_p",
+        "title": "行星发动机模拟器演示视频"
+      },
+      "external": {
+        "label": "跳转链接",
+        "url": "playgrounds/planet-engine/",
+        "local": true,
+        "icon": "red"
+      }
+    },
+    {
+      "id": "mel",
+      "title": "MEL",
+      "category": "indie",
+      "description": "独立游戏原型",
+      "intro": "mel/intro.md",
+      "body": "mel/body.md",
+      "gallery": [
+        {
+          "src": "mel/images/mel1.png"
+        },
+        {
+          "src": "mel/images/mel2.png"
+        },
+        {
+          "src": "mel/images/mel3.png"
+        }
+      ],
+      "modalTitle": "MEL",
+      "categoryLabel": "独立游戏项目",
+      "external": {
+        "label": "机核网链接",
+        "url": "https://www.gcores.com/games/81216",
+        "icon": "orange"
+      }
+    },
+    {
+      "id": "ss",
+      "title": "SS",
+      "category": "game",
+      "description": "创意设计游戏\n全流程UIUX",
+      "intro": "ss/intro.md",
+      "body": "ss/body.md",
+      "gallery": [
+        {
+          "src": "ss/images/SS1.png"
+        }
+      ],
+      "modalTitle": "代号SS",
+      "categoryLabel": "游戏UIUX"
+    },
+    {
+      "id": "saic",
+      "title": "乐趣衍化\n——MG品牌策略",
+      "category": "concept",
+      "description": "第十二届上汽设计国际挑战赛策略与传达赛道  优秀奖",
+      "intro": "saic/intro.md",
+      "body": "saic/body.md",
+      "gallery": [
+        {
+          "type": "video",
+          "url": "https://go.plvideo.cn/front/video/preview?vid=p672b1c5c8ff698305537dbc89322e84_p",
+          "title": "乐趣衍化方案视频"
+        },
+        {
+          "src": "saic/images/saic1.png"
+        },
+        {
+          "src": "saic/images/saic2.png"
+        },
+        {
+          "src": "saic/images/saic3.png"
+        }
+      ],
+      "modalTitle": "乐趣衍化",
+      "categoryLabel": "概念设计",
+      "award": {
+        "src": "saic/images/bba4a0b8bf24b86ed2c6721ef423b8d26e4c98cb.png",
+        "label": "获奖证书",
+        "width": 209,
+        "height": 302
+      }
+    },
+    {
+      "id": "mci",
+      "title": "MCI老人认知提升产品设计",
+      "category": "product",
+      "description": "包含软硬件设计、实体交互设计的毕业设计方案",
+      "intro": "mci/intro.md",
+      "gallery": [],
+      "categoryLabel": "产品设计",
+      "video": {
+        "url": "https://go.plvideo.cn/front/video/preview?vid=p672b1c5c8023430762179eed5c38cc9_p",
+        "title": "MCI老人认知提升产品设计演示视频"
+      }
+    },
+    {
+      "id": "portfolio",
+      "title": "作品集网站",
+      "category": "web",
+      "description": "你已身在其中:)",
+      "home": true
+    }
   ]
 }

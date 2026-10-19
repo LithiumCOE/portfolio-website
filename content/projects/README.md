@@ -57,7 +57,7 @@ content/projects/ga/images/01.jpg
 
 当前模板对应：
 - 单页简介（without MORE）：`wangquan`、`pda`、`web`、`physics`。
-- 简介 + 正文（with MORE）：`ga`、`toyota`、`mel`、`ss`、`r6s`、`saic`、`mci`，均已连接各自的 `intro.md` 与 `body.md`。
+- 简介 + 正文（with MORE）：`ga`、`toyota`、`mel`、`ss`、`saic`，均已连接各自的 `intro.md` 与 `body.md`。
 - `mci` 为原 `thesis` 文件夹的新名称。
 
 直接编辑相应目录里的 MD，保存后刷新网页即可更新，不需要反复修改 JSON。页面刷新时会重新校验文件，页面内重复打开则复用预加载缓存。JSON 仅在改路径、图片列表、分类或跳转链接时需要修改。
@@ -85,3 +85,16 @@ PPT/PDF 建议先导出成逐页 16:9 图片，再在 `body.md` 引用；系统�
 ## 本地预览
 
 通过本地服务预览，例如 `http://127.0.0.1:8765/#work`；不要直接双击 HTML，因为浏览器会限制读取 Markdown 和 JSON。
+
+## 内嵌视频与跳转按钮
+
+`physics` 使用 `video` 字段替代 `gallery`，当前接入用户提供的 plvideo HTTPS 地址。该类型关闭弹窗时会卸载播放器。以后更换视频，修改 `projects.json` 的 `video.url`；`video.title` 为播放器的辅助标题。
+
+`external.icon` 支持 `steam`（橙色）、`green`（绿色链接）和 `red`（红色链接）。图标与文字共用链接热区和 Hover 动效，统一在新标签页打开。
+本地原型链接需设 `external.local: true`，其 `url` 相对于网站根目录（不要以 `/` 开头），例如 `playgrounds/planet-engine/`，可以兼容 GitHub Pages 的项目路径。
+
+模拟器运行版本只有约 9.2MB，更新方法见 `playgrounds/planet-engine/README.md`。开发源码继续在原 Simulator 工程维护。
+
+
+## 2026-10-18 Preview 更新
+SS 使用 ss/images/SS1.png；Toyota 使用 toyota1–4.png。SAIC gallery 第一项为托管视频，其后为 saic1–3.png；获奖证书另列右侧。gallery 支持 {"type":"video","url":"https://go.plvideo.cn/...","title":"视频名称"}。视频只在打开对应媒体项时加载，切换图片/关闭卡片时清空播放器。MCI 为 without MORE，仅视频，不再引用 body.md。R6S 项目与旧列表入口已删除。四项目的简介以各自 intro.md 为编辑源，按当前 Figma RichText 保留文案、加粗与换行。

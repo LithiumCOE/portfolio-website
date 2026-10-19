@@ -88,9 +88,49 @@ const highlight=new THREE.Mesh(new THREE.TubeGeometry(track,360,5,6,true),new TH
 const dropRing=new THREE.Mesh(new THREE.TorusGeometry(22,3.2,8,40),new THREE.MeshBasicMaterial({color:0xb2ff67,depthTest:false,depthWrite:false,toneMapped:false}));dropRing.rotation.x=-Math.PI/2;dropRing.renderOrder=110;dropRing.visible=false;model.add(dropRing);
 let running=!reduced,target=1,velocity=1,phase=(((-1.4/(Math.PI*2))%1)+1)%1,flight=null,drag=null,resetUntil=0,pauseUntil=0,risk=0,boostUntil=0,prev=0,pressRed=0,pressGreen=0;
 const tooltip=document.createElement('div');tooltip.className='model-tooltip';tooltip.hidden=true;tooltip.setAttribute('role','tooltip');document.body.append(tooltip);
-const controlsBubble=document.createElement('div');controlsBubble.className='hero-bubble controls-bubble';controlsBubble.textContent='拖动滑块，点点按钮，左右拖动';canvas.parentElement.append(controlsBubble);
+// Solid geometry shares the sandbox lighting, perspective and model rotation.
+const cueMaterial=new THREE.MeshStandardMaterial({color:0xd4a568,roughness:.38,metalness:.32,flatShading:true,transparent:true});
+const cueSide=new THREE.MeshStandardMaterial({color:0xb68549,roughness:.45,metalness:.25,flatShading:true,transparent:true});
+function solidPointer(){
+  const group=new THREE.Group();
+  const shaft=new THREE.Mesh(new THREE.BoxGeometry(9,33,9),cueMaterial);shaft.position.y=38;group.add(shaft);
+  const head=new THREE.Mesh(new THREE.ConeGeometry(17,23,4),cueMaterial);head.rotation.z=Math.PI;head.rotation.y=Math.PI/4;head.position.y=11.5;group.add(head);
+  return group;
+}
+const controlCues=[knob,red,green].map((target,index)=>{const arrow=solidPointer();arrow.userData.phase=index*.8;model.add(arrow);return {target,arrow};});
+function solidCurvedArrow(){
+  const r=43,outer=49,inner=37,a=-1.2,b=1.1,shape=new THREE.Shape();
+  shape.moveTo(Math.cos(a)*outer,Math.sin(a)*outer);shape.absarc(0,0,outer,a,b,false);
+  shape.lineTo(Math.cos(b)*(r+19),Math.sin(b)*(r+19));
+  shape.lineTo(Math.cos(b+.52)*r,Math.sin(b+.52)*r);
+  shape.lineTo(Math.cos(b)*(r-19),Math.sin(b)*(r-19));
+  shape.lineTo(Math.cos(b)*inner,Math.sin(b)*inner);shape.absarc(0,0,inner,b,a,true);shape.closePath();
+  const mesh=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:9,bevelEnabled:true,bevelSize:1.1,bevelThickness:1.1,bevelSegments:1,steps:1,curveSegments:28}),[cueMaterial,cueSide]);
+  mesh.rotation.x=-Math.PI/2;const group=new THREE.Group();group.add(mesh);return group;
+}
+const dragCues=[solidCurvedArrow(),solidCurvedArrow()];
+dragCues[0].position.set(-345,28,340);dragCues[1].position.set(340,28,-345);
+dragCues.forEach(cue=>{cue.children[0].scale.x=-1;model.add(cue);});
+let guidesDismissedAt=null,guidesFinished=false;
+function dismissGestureGuides(){
+  if(guidesDismissedAt!==null)return;
+  guidesDismissedAt=performance.now();canvas.dataset.guidance='fading';
+}
+function updateGestureGuides(time){
+  if(guidesFinished)return;
+  if(guidesDismissedAt!==null){
+    const progress=Math.min(1,(time-guidesDismissedAt)/750),opacity=1-progress*progress*(3-2*progress);
+    cueMaterial.opacity=cueSide.opacity=opacity;
+    if(progress===1){guidesFinished=true;[...dragCues,...controlCues.map(cue=>cue.arrow)].forEach(cue=>cue.visible=false);canvas.dataset.guidance='dismissed';return;}
+  }
+  controlCues.forEach(({target,arrow},index)=>{
+    arrow.position.copy(target.position);arrow.position.y+=28+(reduced?0:Math.sin(time*.002+index*.8)*3);
+    arrow.rotation.y=reduced?.35:time*.0015+index*.8;
+  });
+  dragCues.forEach((arrow,index)=>{const motion=reduced?0:Math.sin(time*.002+index*.7);arrow.rotation.y=(index?Math.PI:0)+Math.PI*.25+motion*.2;arrow.position.y=28+motion*4;});
+}
 const recoveryBubble=document.createElement('div');recoveryBubble.className='hero-bubble recovery-bubble';recoveryBubble.textContent='把我拖回赛道吧';recoveryBubble.hidden=true;canvas.parentElement.append(recoveryBubble);
-const bubblePoint=new THREE.Vector3(),controlAnchor=new THREE.Vector3(40,-16,280);
+const bubblePoint=new THREE.Vector3();
 let viewportWidth=1,viewportHeight=1;
 function positionBubble(element,world,below=false){
   model.localToWorld(bubblePoint.copy(world)).project(camera);
@@ -99,15 +139,13 @@ function positionBubble(element,world,below=false){
 }
 function updateBubbles(){
   model.updateWorldMatrix(true,false);
-  controlsBubble.hidden=!!flight||!!drag;
   recoveryBubble.hidden=!flight?.settled||drag?.kind==='car';
-  if(!controlsBubble.hidden)positionBubble(controlsBubble,controlAnchor,true);
   if(!recoveryBubble.hidden)positionBubble(recoveryBubble,car.position);
 }
 function sync(message){play.textContent=running?'暂停 Ⅱ':'播放 ▷';play.disabled=!!flight;slider.disabled=!!flight;boost.disabled=!!flight;output.value=target.toFixed(1)+'×';canvas.dataset.state=flight?'derailed':running?'running':'paused';if(message)status.textContent=message;}
 function restore(t=(((-1.4/(Math.PI*2))%1)+1)%1,resume=!reduced){model.add(car);flight=null;drag=null;phase=t;target=velocity=1;slider.value='1';running=resume;risk=0;boostUntil=0;resetUntil=performance.now()+180;sync('归位了，再试一次。');}
-function toggle(){if(flight)return;running=!running;pauseUntil=performance.now()+180;sync(running?'小车正在绕圈。':'暂停了，城市等你继续。');}
-play.addEventListener('click',toggle);reset.addEventListener('click',()=>restore());slider.addEventListener('input',()=>{target=+slider.value;sync(target>2.2?'这个速度有点危险。':'速度已调整。');});boost.addEventListener('click',()=>{running=true;boostUntil=performance.now()+2400;sync('加速中，注意转弯。');});
+function toggle(){if(flight)return;dismissGestureGuides();running=!running;pauseUntil=performance.now()+180;sync(running?'小车正在绕圈。':'暂停了，城市等你继续。');}
+play.addEventListener('click',toggle);reset.addEventListener('click',()=>{dismissGestureGuides();restore();});slider.addEventListener('input',()=>{dismissGestureGuides();target=+slider.value;sync(target>2.2?'这个速度有点危险。':'速度已调整。');});boost.addEventListener('click',()=>{dismissGestureGuides();running=true;boostUntil=performance.now()+2400;sync('加速中，注意转弯。');});
 const ray=new THREE.Raycaster(),pointer=new THREE.Vector2();
 function setRay(e){model.updateWorldMatrix(true,true);const rect=canvas.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);ray.setFromCamera(pointer,camera);return rect;}
 function showTooltip(e,action){if(!action||drag){tooltip.hidden=true;return;}tooltip.textContent=action==='reset'?'重置':action==='play'?(running?'暂停':'播放'):`拖动滑块调整速度 · ${target.toFixed(1)}×`;tooltip.style.left=Math.min(innerWidth-250,Math.max(10,e.clientX+16))+'px';tooltip.style.top=Math.min(innerHeight-60,e.clientY+16)+'px';tooltip.hidden=false;}
@@ -121,11 +159,11 @@ function dropTarget(e){const rect=setRay(e),hit=ray.intersectObject(road,false)[
 function updateSpeed(e){setRay(e);const p=new THREE.Vector3();if(ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0,1,0),-20),p)){model.worldToLocal(p);target=THREE.MathUtils.clamp(.3+(p.x+240)/315*2.9,.3,3.2);slider.value=String(target);sync(target>2.2?'速度有点危险。':'速度已调整。');}}
 canvas.style.touchAction='none';canvas.style.cursor='grab';
 canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;setRay(e);tooltip.hidden=true;
-  if(flight&&pickCar()){drag={kind:'car',plane:new THREE.Plane(new THREE.Vector3(0,1,0),-180),original:car.position.clone()};highlight.visible=true;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';sync('拖到赛道任意位置，松手继续跑。');return;}
+  if(flight&&pickCar()){dismissGestureGuides();drag={kind:'car',plane:new THREE.Plane(new THREE.Vector3(0,1,0),-180),original:car.position.clone()};highlight.visible=true;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';sync('拖到赛道任意位置，松手继续跑。');return;}
   const control=ray.intersectObjects(controlHits,false)[0]?.object.userData.action;
-  if(control==='reset'){restore();return;}if(control==='play'){toggle();return;}if(control==='speed'&&!flight){drag={kind:'speed'};updateSpeed(e);}else drag={kind:'orbit',x:e.clientX,yaw};
+  if(control==='reset'){dismissGestureGuides();restore();return;}if(control==='play'){toggle();return;}if(control==='speed'&&!flight){dismissGestureGuides();drag={kind:'speed'};updateSpeed(e);}else drag={kind:'orbit',x:e.clientX,yaw};
   canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';});
-canvas.addEventListener('pointermove',e=>{setRay(e);if(drag?.kind==='orbit'){yaw=drag.yaw+(e.clientX-drag.x)*.006;model.rotation.y=yaw;model.updateWorldMatrix(true,true);return;}if(drag?.kind==='speed'){updateSpeed(e);return;}if(drag?.kind==='car'){const p=new THREE.Vector3();if(ray.ray.intersectPlane(drag.plane,p))car.position.copy(model.worldToLocal(p));const hit=dropTarget(e);dropRing.visible=!!hit;if(hit){dropRing.position.copy(hit.point);dropRing.position.y+=3;}return;}const action=ray.intersectObjects(controlHits,false)[0]?.object.userData.action;showTooltip(e,action);canvas.style.cursor=flight&&pickCar()?'grab':action?'pointer':'grab';});
+canvas.addEventListener('pointermove',e=>{setRay(e);if(drag?.kind==='orbit'){if(Math.abs(e.clientX-drag.x)>3)dismissGestureGuides();yaw=drag.yaw+(e.clientX-drag.x)*.006;model.rotation.y=yaw;model.updateWorldMatrix(true,true);return;}if(drag?.kind==='speed'){updateSpeed(e);return;}if(drag?.kind==='car'){const p=new THREE.Vector3();if(ray.ray.intersectPlane(drag.plane,p))car.position.copy(model.worldToLocal(p));const hit=dropTarget(e);dropRing.visible=!!hit;if(hit){dropRing.position.copy(hit.point);dropRing.position.y+=3;}return;}const action=ray.intersectObjects(controlHits,false)[0]?.object.userData.action;showTooltip(e,action);canvas.style.cursor=flight&&pickCar()?'grab':action?'pointer':'grab';});
 function finish(e,cancel=false){if(drag?.kind==='car'){const hit=cancel?null:dropTarget(e);if(hit){restore(hit.phase%1,true);sync('已放回赛道，从这里继续跑。');}else{car.position.copy(drag.original);sync('还没放到赛道上，再捡一次。');}}drag=null;highlight.visible=dropRing.visible=false;tooltip.hidden=true;if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);canvas.style.cursor='grab';if(!cancel){setRay(e);showTooltip(e,ray.intersectObjects(controlHits,false)[0]?.object.userData.action);}}
 canvas.addEventListener('pointerup',e=>finish(e));canvas.addEventListener('pointercancel',e=>finish(e,true));canvas.addEventListener('pointerleave',()=>tooltip.hidden=true);
 function crash(){
@@ -155,26 +193,29 @@ function tick(time){const dt=prev?Math.min((time-prev)/1000,.05):0;prev=time;
     }}
     else {if(running){velocity+=(Math.max(target,time<boostUntil?3.6:target)-velocity)*Math.min(1,dt*3);phase=(phase+dt*.55*velocity/(Math.PI*2))%1;const a=track.getTangentAt((phase+.004)%1),b=track.getTangentAt((phase-.004+1)%1);risk=velocity>2.2&&a.angleTo(b)>.03?risk+dt:Math.max(0,risk-dt);if(risk>.22)crash();}
       if(!flight){const p=track.getPointAt(phase),forward=track.getTangentAt(phase).normalize(),side=new THREE.Vector3().crossVectors(forward,new THREE.Vector3(0,1,0)).normalize(),up=new THREE.Vector3().crossVectors(side,forward);car.position.copy(p).addScaledVector(up,1);car.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(forward,up,side));}}
-    updateBubbles();render();
+    updateGestureGuides(time);updateBubbles();render();
   }requestAnimationFrame(tick);}
 const fallback=document.createElement('details');fallback.className='keyboard-controls';fallback.innerHTML='<summary>键盘 / 备用控制</summary>';const host=document.querySelector('.controls');[document.querySelector('.play-row'),document.querySelector('label[for="speed"]'),slider,document.querySelector('.range-label'),boost].forEach(el=>fallback.append(el));host.append(fallback);
 document.querySelector('.control-heading').innerHTML='<span>摸摸这个 3D 沙盘</span><span>↙</span>';document.querySelector('.hint').innerHTML='拖动空白处旋转视角。<br>长边滑块调速，红钮重置，绿钮播放。<br>飞出后，小车落到桌面，捡回赛道。';
 const exportButton=document.createElement('button');exportButton.className='export-model';exportButton.textContent='保存模型 PNG ↗';host.append(exportButton);
 exportButton.addEventListener('click',()=>{
   const ratio=renderer.getPixelRatio(),size=renderer.getSize(new THREE.Vector2()),aspect=camera.aspect,view={...camera.view},distance=orbitDistance;
+  const cues=[...dragCues,...controlCues.map(cue=>cue.arrow)];
   try {
+    cues.forEach(cue=>cue.visible=false);
     renderer.setPixelRatio(1);renderer.setSize(2800,1700,false);camera.clearViewOffset();camera.aspect=2800/1700;orbitDistance=2050;camera.updateProjectionMatrix();updateCamera();render();
     let link=document.querySelector('#hero-download');
     if(!link){link=document.createElement('a');link.id='hero-download';link.textContent='下载 PNG';link.style.cssText='display:block;font-size:11px;margin-top:8px';host.append(link);}
     link.download='hero-webgl-transparent.png';link.href=canvas.toDataURL('image/png');
   } finally {
+    cues.forEach(cue=>cue.visible=!guidesFinished);
     camera.aspect=aspect;orbitDistance=distance;
     if(view.enabled)camera.setViewOffset(view.fullWidth,view.fullHeight,view.offsetX,view.offsetY,view.width,view.height);
     camera.updateProjectionMatrix();updateCamera();renderer.setPixelRatio(ratio);renderer.setSize(size.x,size.y,false);render();
   }
 });
 const backup=document.createElement('a');backup.href='backups/canvas2d-2026-10-14/index.html';backup.textContent='查看 Canvas 2D 备份 ↗';backup.className='backup-link';host.append(backup);
-canvas.setAttribute('aria-label','WebGL 三维城市沙盘，空白处拖动旋转，实体滑块调速，红色按钮重置，绿色按钮播放或暂停。脱轨小车可拖回赛道。');canvas.dataset.renderer='webgl';sync(reduced?'点击绿色按钮开始探索。':'小车正在绕圈。');requestAnimationFrame(tick);
+canvas.setAttribute('aria-label','WebGL 三维城市沙盘，空白处拖动旋转，实体滑块调速，红色按钮重置，绿色按钮播放或暂停。脱轨小车可拖回赛道。');canvas.dataset.renderer='webgl';canvas.dataset.guidance='visible';sync(reduced?'点击绿色按钮开始探索。':'小车正在绕圈。');requestAnimationFrame(tick);
 
 
 

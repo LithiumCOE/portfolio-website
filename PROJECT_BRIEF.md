@@ -94,3 +94,18 @@ Without MORE 弹窗统一按内容高度收尾：未配置 body 的项目自动�
 2026-10-15 模板统一：thesis 目录与项目 ID 改为 mci，简介路径同步更新。wangquan/pda/web/physics 为 without MORE；ga/toyota/mel/ss/r6s/saic 为 with MORE，全部连接 intro.md、body.md，缺少的正文新建可编辑占位。mci 暂保留单页。MORE 用自动上边距推至简介首屏下沿、底部 16px；超长内容允许自然撑高。MD/JSON 使用 no-cache 校验，刷新读取新内容，同页仍复用内存预加载。
 
 模板补充：用户明确 mci 也属于 with MORE，已连接 mci/body.md，覆盖此前暂保留单页的约定。
+
+## 2026-10-16：without MORE 新 Figma 稿与模拟器整合
+已读取 PDA（235:116）、Wangquan（228:3939）、physics（239:136）的完整设计上下文与独立截图。共用 without MORE 模板调整为主标题 90px、副标题 70px、类别 32px、正文 16px，左右 40px，正文区至少 200px；图片区前 45px、底部 50px。1330px 卡片在现有文案下约 918px 高，内容增加时自然撑高。此版覆盖此前底部 32px 约定。
+PDA 读取 pda/images/pda1、pda2、pda3、pda5、pda4.png（按稿顺序），简介更新到 intro.md，绿色链接图标+文字跳转用户提供的 B站时间点。亡犬维持 Steam 链接并按新稿重排。
+physics 简介与标题按稿更新，媒体使用用户提供的 HTTPS plvideo iframe，不使用图集、不引入 200MB 视频；关闭弹窗清空 iframe，停止后台播放。右下红色链接在新标签页打开 playgrounds/planet-engine/。三个链接图标均从新 Figma 稿下载，保留按钮整体热区及统一 Hover 动效。
+模拟器源工程保留在 C:\Users\EricL\Desktop\太阳系模拟\Simulator。只将已构建的 playground_v2.html 原样复制为 playgrounds/planet-engine/index.html（9,206,091 字节，SHA256 校验一致），附素材来源和更新说明。Git 历史约 434MB、验证截图约 88MB及旧版源码不属于网站运行依赖，不复制。原型只在点击链接后加载，卡片预加载不请求原型。
+此轮仅本地实现及基本检查，未经用户新指令不推送或部署。完整视觉与播放器播放体验由用户验收。
+
+2026-10-16：without MORE 卡片改为屏幕内水平、垂直居中，取代顶部固定 55px；外层保留上下至少 55px，超高内容时正常滚动。with MORE 保留现有布局。
+
+2026-10-16：Web 卡片按 Figma web（239:155）更新标题、正文及红色官网跳转按钮；使用用户提供 content/projects/web/images/web1.png，单图不显示缩略图、计数或翻页按钮，保持 without MORE 居中与底部 50px。用户明确当前不要 GIF。官网链接 https://www.surgicalscalpels.com/ 在新标签页打开。此轮仍仅本地，未推送。
+
+2026-10-16：About 身份 Filter 支持悬停预览，对应角色项目放大 1.025 倍，移开恢复原点击筛选状态；点击高亮仍为 1.04 倍。悬停不会将其他项目置灰，已有筛选时悬停项目暂恢复原色，键盘焦点可预览。手动悬停会中断入场轮播。
+
+2026-10-16：About Me 桌面默认首屏显示底部 WORKS 入口。标题字号保持不变，行高从 1.42 收紧至 1.1，减少纵向空白；内容容器改为纵向弹性布局，WORKS 置于内容末尾。2560×1279 下入口底部约 1265px，距窗口下沿约 14px，上方 HOME PAGE 仍默认隐藏。

@@ -1,0 +1,4 @@
+/* Shared site typography. Display mastheads retain their existing Michroma face. */
+@font-face{font-family:'Noto Sans SC';src:url('assets/fonts/NotoSansSC-Full-VF.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+body,body :where(p,span,li,dt,dd,div,a,button,input,textarea,select,label,output,small,strong,em,blockquote,figcaption,table,th,td,h1,h2,h3,h4,h5,h6){font-family:'Noto Sans SC',sans-serif!important}
+body .display-title,body .display-title *,body .selected-title,body .selected-title *{font-family:Michroma,sans-serif!important}

@@ -2,7 +2,6 @@
 const cases = {
  ss:{name:'SS · 商业 FPS 交互',type:'概述 + 演示',description:'局外交互流程、组件库与设计规范。',note:'仅展示低保真与脱敏内容。',demo:true},
  ga:{name:'GA · 从零构建 UI 系统',type:'概述 + 演示',description:'组件库、信息架构与模块化界面的设计探索。',note:'可公开素材待整理；商业结果仅中性表述。',demo:true},
- r6s:{name:'R6S · 战前准备优化',type:'概述 + 演示',description:'从玩家旅程与痛点分析，推导新的局外体验。',note:'个人练习；新旧方案对比内容待补充。',demo:true},
  mel:{name:'MEL · 双主角解谜游戏',type:'介绍 + 动效叙事',description:'从核心循环到美术与界面，一个小团队的创作。',note:'角色、过程与作品素材待整理。',deck:true},
  pda:{name:'PDA · 全息交互样机',type:'概述 + 演示',description:'从已公开 PV 镜头，探索界面在空间中的表达。',note:'公开素材范围内的 UI 原稿与样机待接入。',demo:true},
  physics:{name:'天体物理模拟器',type:'概述 + 演示',description:'以 AI 协作探索和构建可玩的物理模拟原型。',note:'个人前瞻研究；原有 HTML 工程待接入。',demo:true},
@@ -13,7 +12,7 @@ const cases = {
  netease:{name:'召唤兽 · UX 优化',type:'单页介绍',description:'在运营项目中的问题定义与 UXD 工作。',note:'仅轻量概述，不补写无法回忆的项目细节。'},
  ai:{name:'与 AI 一起，把想法做出来',type:'介绍 + 动效叙事',description:'从知识库素材、设计意图，到原型实现和人工验收。',note:'首版以本站制作与个人原型作为可公开证据。',deck:true}
 };
-const orders={game:['ss','ga','r6s','mel','pda','physics','netease'],digital:['web','saic','r6s','thesis','ss'],hardware:['thesis','saic','toyota']};
+const orders={game:['ss','ga','mel','pda','physics','netease'],digital:['web','saic','thesis','ss'],hardware:['thesis','saic','toyota']};
 const labels={game:['Game','游戏交互 / 系统设计 / 可玩原型'],digital:['Digital','数字产品 / 信息架构 / 设计策略'],hardware:['Hardware','智能硬件 / 行为模式 / 软硬件体验']};
 const query=new URLSearchParams(location.search);const industry=orders[query.get('industry')]?query.get('industry'):'game';const list=document.querySelector('#case-list');
 if(list){document.title=labels[industry][0]+' — Eric';document.querySelector('#list-title').textContent=labels[industry][0];document.querySelector('#list-description').textContent=labels[industry][1];list.innerHTML=orders[industry].map((id,i)=>{const c=cases[id];return `<a class="case-card" href="case.html?id=${id}&industry=${industry}"><div class="case-cover">${String(i+1).padStart(2,'0')} / 封面待补充</div><h3>${c.name} <span>↗</span></h3><p>${c.type} · ${c.description}</p></a>`}).join('');if(industry==='game'){list.insertAdjacentHTML('beforeend','<a class="case-card" href="https://www.gcores.com/games/126712" target="_blank" rel="noopener noreferrer"><div class="case-cover">外部作品 / 机核</div><h3>亡犬 <span>↗</span></h3><p>参与署名 · 朋友项目 · 打开外部链接</p></a>')}}

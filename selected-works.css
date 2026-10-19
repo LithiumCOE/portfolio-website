@@ -36,8 +36,10 @@
 .project-close span::after{transform:translate(-50%,-50%) rotate(-45deg)}
 .project-close:hover{background:#efe6d5;filter:brightness(1.04)}
 .project-intro{padding:35px 3% 32px;min-height:calc(100dvh - 55px);display:flex;flex-direction:column}
-.project-sheet.is-intro-only{margin-bottom:55px}
+.modal-scroller:has(.project-sheet.is-intro-only){display:flex;flex-direction:column;align-items:center;padding:55px 0}
+.project-sheet.is-intro-only{flex:none;margin:auto 0}
 .project-sheet.is-intro-only .project-intro{min-height:0}
+.project-header-row{display:contents}
 .project-heading{display:flex;align-items:baseline;gap:24px;flex-wrap:wrap;margin:0;line-height:1.2}
 .figma-layout .project-heading{display:flex;position:static;inset:auto;width:auto;height:auto;z-index:auto;background:none;padding:0;justify-content:flex-start}
 .project-more[hidden],.project-external[hidden]{display:none}
@@ -68,3 +70,430 @@
 @media(max-width:600px){.figma-layout #work.selected-works{--screen-bottom:40px}}
 
 .project-sheet:not(.is-intro-only) .project-intro{padding-bottom:16px}
+
+/* Shared single-page card, from the revised PDA / Wangquan / physics frames. */
+.project-sheet.is-intro-only .project-intro{padding:64px 40px 50px}
+.is-intro-only .project-header-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid #111;padding-bottom:24px;margin-bottom:30px}
+.is-intro-only .project-heading{flex-wrap:nowrap;gap:25px;min-width:0}
+.is-intro-only .project-heading h2{font-size:90px;line-height:1;white-space:nowrap}
+.is-intro-only .project-subtitle{font-size:70px;line-height:1;white-space:nowrap}
+.is-intro-only .project-subtitle:empty{display:none}
+.is-intro-only .project-category{flex:none;border:0;padding:0;margin:0;font-size:32px;line-height:1;white-space:nowrap}
+.is-intro-only .intro-markdown{min-height:200px;font-size:16px;line-height:1.35}
+.is-intro-only .intro-markdown p:last-child{margin-bottom:0}
+.is-intro-only .project-media-row{margin-top:45px;flex-direction:row;align-items:flex-end}
+.is-intro-only .project-gallery{position:relative;display:block;width:70.7458%;flex:none}
+.is-intro-only .gallery-main{width:83.025%}
+.is-intro-only .gallery-thumbs{position:absolute;top:0;right:0;bottom:0;width:15.61%;max-height:none;gap:6px;scrollbar-width:none}
+.is-intro-only .gallery-thumb{min-height:0}
+.is-intro-only .project-gallery.is-single{width:58.7378%}
+.is-intro-only .project-gallery.is-single .gallery-main{width:100%}
+.project-gallery.is-single .gallery-thumbs,.project-gallery.is-single .gallery-count{display:none}
+.project-video{width:58.7378%;aspect-ratio:16/9;flex:none;background:#cdcdcd;overflow:hidden}
+.project-video iframe{display:block;width:100%;height:100%;border:0}
+.project-video[hidden],.project-gallery[hidden]{display:none}
+.project-link-icon{display:grid;place-items:center;width:32px;height:32px;flex:none}
+.project-external.has-link-icon .project-link-icon{width:34px;height:34px}
+.project-external.has-link-icon img{width:28.5012px;height:28.5008px}
+/* with MORE Preview standard — GA Figma frame 228:3898 (1330px). */
+.project-sheet.has-more .project-intro{padding:64px 40px 16px;min-height:max(966px,calc(100dvh - 55px))}
+.has-more .project-header-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;border-bottom:1px solid #111;padding-bottom:24px;margin-bottom:30px}
+.has-more .project-heading{flex-wrap:nowrap;gap:25px;min-width:0}
+.has-more .project-heading h2{font-size:90px;line-height:1;white-space:nowrap}
+.has-more .project-subtitle{font-size:70px;line-height:1;white-space:nowrap}
+.has-more .project-subtitle:empty{display:none}
+.has-more .project-category{flex:none;border:0;padding:0;margin:0;font-size:32px;line-height:1;white-space:nowrap}
+.has-more .intro-markdown{min-height:200px;font-size:16px;line-height:1.35}
+.has-more .intro-markdown p{margin:0 0 12px}
+.has-more .intro-markdown p:last-child{margin:0}
+.has-more .intro-markdown ol{padding-left:24px;margin:0 0 12px}
+.has-more .project-media-row{margin-top:45px;flex-direction:row;align-items:flex-end}
+.has-more .project-gallery{position:relative;display:block;width:70.7458%;flex:none}
+.has-more .gallery-main{width:83.025%}
+.has-more .gallery-thumbs{position:absolute;top:0;right:0;bottom:0;width:15.61%;max-height:none;gap:6px;scrollbar-width:none}
+.has-more .gallery-thumb{min-height:0}
+.has-more .project-gallery.is-single{width:58.7378%}
+.has-more .project-gallery.is-single .gallery-main{width:100%}
+.has-more .project-more{flex:none;margin:auto auto 0;padding:35px 20px 0;gap:8px}
+
+/* The case-study diagrams retain their Figma coordinate system, scaled as one unit. */
+.project-sheet.is-ga .project-body{padding:0;border:0;min-height:0}
+.project-sheet.is-ga .body-markdown{max-width:none;width:100%;margin:0}
+.ga-story{position:relative;width:100%;height:4141px;overflow:hidden}
+.ga-stage{position:absolute;left:0;top:0;width:1330px;height:4141px;transform-origin:top left}
+.ga-layout{position:absolute;left:0;top:-965px;width:1330px;height:5106px;font-family:'Noto SC',sans-serif;font-size:16px;line-height:1.5;font-weight:400;color:#000;isolation:isolate}
+.ga-layout *{box-sizing:border-box;border:0 solid #000;margin:0;padding:0;letter-spacing:normal;font:inherit;color:inherit;min-width:0}
+.project-body .project-markdown .ga-story img{display:block;max-width:none;aspect-ratio:auto;object-fit:fill;margin:0;background:none;height:auto;width:auto}
+.ga-layout p{margin:0;max-width:none}
+/* Prepare before first paint; each block starts only inside the modal's reading viewport. */
+.ga-layout .ga-connector{pointer-events:none}
+.ga-story.motion-ready .ga-reveal{opacity:0;translate:0 44px;filter:blur(6px);transition:opacity .7s ease,translate .85s cubic-bezier(.16,1,.3,1),filter .75s ease;transition-delay:var(--reveal-delay,0ms)}
+.ga-story.motion-ready .ga-reveal.is-revealed{opacity:1;translate:0 0;filter:blur(0)}
+.ga-story.motion-ready .ga-section-title{translate:0 28px;scale:.95;transition:opacity .8s ease,translate 1s cubic-bezier(.16,1,.3,1),scale 1s cubic-bezier(.16,1,.3,1),filter .8s ease}
+.ga-story.motion-ready .ga-section-title.is-revealed{scale:1}
+.ga-story.motion-ready .ga-media-reveal{clip-path:inset(0 0 18% 0);transition:opacity .8s ease,translate 1s cubic-bezier(.16,1,.3,1),filter .8s ease,clip-path 1.1s cubic-bezier(.16,1,.3,1);transition-delay:var(--reveal-delay,0ms)}
+.ga-story.motion-ready .ga-media-reveal.is-revealed{clip-path:inset(0)}
+.ga-story.motion-ready .ga-connector{opacity:0;clip-path:inset(-20px -30px 100% -30px);transition:opacity .35s ease,clip-path 1.35s cubic-bezier(.22,1,.36,1);transition-delay:var(--reveal-delay,0ms)}
+.ga-story.motion-ready .ga-connector.is-revealed{opacity:1;clip-path:inset(-20px -30px -20px -30px)}
+@media(prefers-reduced-motion:reduce){.ga-story.motion-ready .ga-reveal,.ga-story.motion-ready .ga-connector{opacity:1;translate:none;scale:none;filter:none;clip-path:none;transition:none}}
+
+/* Scroll-drawn connections, independent of the content reveal mask. */
+.ga-story.motion-ready .ga-live-connector,.ga-story.motion-ready .ga-live-connector.is-revealed{opacity:1;clip-path:none;transition:none;z-index:1}
+.ga-live-connector svg{display:block;overflow:visible}
+.ga-live-connector .ga-connection-stroke{stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--line-progress,0));transition:stroke-dashoffset .65s cubic-bezier(.22,1,.36,1)}
+.ga-live-connector .ga-connection-tip{opacity:0;transition:opacity .3s ease}
+.ga-live-connector.is-connected .ga-connection-tip{opacity:1}
+@media(prefers-reduced-motion:reduce){.ga-live-connector .ga-connection-stroke{stroke-dashoffset:0;transition:none}.ga-live-connector .ga-connection-tip{opacity:1;transition:none}}
+
+/* Preview and article are separate reading states, on the same opaque card surface. */
+.project-sheet.has-more{min-height:calc(100dvh - 55px)}
+.project-sheet .project-intro[hidden],.project-sheet .project-body[hidden]{display:none}
+.project-body{position:relative}
+.project-back-preview{position:absolute;top:10px;left:50%;translate:-50% 0;padding:5px 12px;border:0;background:transparent;font:12px 'Noto SC',sans-serif;letter-spacing:.08em;color:#6c6352;cursor:pointer;z-index:2}
+.project-back-preview:hover{background:transparent;color:#000;transform:translateY(-3px)}
+/* Let all three alternatives arrive first, then resolve the story toward the final design. */
+.ga-layout [data-node-id="254:222"],.ga-layout [data-node-id="254:224"],.ga-layout [data-node-id="254:232"]{transform-origin:center 45%;transition:opacity .8s ease,translate 1s cubic-bezier(.16,1,.3,1),filter 1s ease,clip-path 1.1s cubic-bezier(.16,1,.3,1),scale 1s cubic-bezier(.22,1,.36,1)}
+.project-sheet.ga-final-focus .ga-story.motion-ready .ga-layout [data-node-id="254:222"],.project-sheet.ga-final-focus .ga-story.motion-ready .ga-layout [data-node-id="254:224"]{filter:grayscale(1);opacity:.38;scale:.96}
+.project-sheet.ga-final-focus .ga-story.motion-ready .ga-layout [data-node-id="254:232"]{scale:1.12;z-index:3}
+.ga-story:has([data-node-id="254:232"]){overflow:clip}
+@media(prefers-reduced-motion:reduce){.ga-layout [data-node-id="254:222"],.ga-layout [data-node-id="254:224"],.ga-layout [data-node-id="254:232"]{transition:none}}
+/* Six independent GA article viewports. */
+.ga-chapters{position:relative;height:calc(100dvh - 55px);width:100%;overflow:hidden;font-family:'Noto SC',sans-serif;font-size:16px;line-height:1.5;color:#000}
+.ga-chapters *{box-sizing:border-box}
+.ga-chapter-window{position:relative;height:calc(100% - 66px)}
+.ga-chapter{position:absolute;inset:0;padding:30px 40px 0;display:flex;flex-direction:column;gap:25px}
+.ga-chapter[hidden],.ga-lowfi-panel[hidden]{display:none}
+.project-markdown .ga-chapter h2{font-size:72px;font-weight:700;line-height:1.15;letter-spacing:0;color:#0003;text-align:center;margin:0;flex:none}
+.ga-chapter-fit{position:relative;flex:1;min-height:0;overflow:visible}
+.ga-chapter-content{position:absolute;width:1250px;transform-origin:top left}
+.project-body .project-markdown .ga-chapters img{max-width:none;aspect-ratio:auto;object-fit:fill;background:none;margin:0;width:auto;height:auto}
+.ga-chapter-content p{margin:0}
+.ga-chapter-card{padding:16px!important;gap:20px!important;display:flex;flex-direction:column;min-width:0}
+.ga-chapter-card>p{width:auto!important;min-width:0!important;white-space:normal!important}
+.ga-core-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:50px}
+.ga-core-grid .ga-chapter-card{text-align:center;align-items:center}
+.ga-core-grid .ga-chapter-card>p:first-child{font-size:32px!important}
+.ga-core-grid .ga-chapter-card>p:last-child{font-size:24px!important}
+.ga-opening{padding:0 130px;text-align:center;font-size:24px;line-height:1.8}
+.ga-opening>div{font-size:24px!important;width:100%!important;line-height:1.8!important}
+.ga-opening p{line-height:1.8!important}
+.ga-demand-grid{position:absolute;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;padding-top:230px;min-height:450px}
+.ga-demand-origins{position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-around;gap:30px;font-size:24px;font-weight:700}
+.ga-demand-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.ga-solutions-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:50px}
+.ga-solutions-grid>div{display:flex;flex-direction:column;gap:25px;position:relative;min-width:0}
+.ga-solutions-grid>div>div{position:relative!important;width:100%!important;flex:none}
+.ga-solutions-grid [data-node-id="251:4291"]{font-size:16px!important;gap:8px!important}
+.ga-solutions-grid [data-node-id="251:4335"]{display:grid!important;grid-template-columns:1fr 1fr;gap:20px!important}
+.ga-solutions-grid [data-node-id="251:4335"]>div{width:auto!important;min-width:0!important;gap:10px!important}
+.ga-solutions-grid [data-node-id="251:4335"] p{font-size:15px!important;white-space:normal!important;width:auto!important;min-width:0!important;line-height:1.4!important}
+.ga-solutions-grid [data-node-id="252:4832"],.ga-solutions-grid [data-node-id="252:4833"],.ga-solutions-grid [data-node-id="253:4866"]{height:60px!important;min-height:60px}
+.ga-solutions-grid [data-node-id="252:4832"]>p,.ga-solutions-grid [data-node-id="252:4833"]>p,.ga-solutions-grid [data-node-id="253:4866"]>p{max-width:calc(100% - 44px);white-space:normal!important}
+.ga-solutions-grid>div>div>p{width:auto!important;min-width:0!important;white-space:normal!important}
+.ga-lowfi-tabs{display:flex;justify-content:center;gap:35px;margin-bottom:35px}
+.ga-lowfi-tabs button{padding:8px 3px;border:0;background:none;font:20px 'Noto SC',sans-serif;color:#756b57;cursor:pointer}
+.ga-lowfi-tabs button[aria-selected=true]{color:#b48400;text-decoration:underline;text-underline-offset:8px}
+.ga-lowfi-panel *{margin:0;padding:0;border:0 solid #000;font:inherit;color:inherit}
+.ga-highfi{width:1330px;height:940px}
+.ga-highfi .ga-attempt{position:absolute!important;top:145px;left:35px;width:403px!important;gap:12px;display:flex;flex-direction:column;transform-origin:top left;transition:translate 1.1s cubic-bezier(.22,1,.36,1),scale 1.1s cubic-bezier(.22,1,.36,1),filter 1s,opacity 1s}
+.ga-highfi .ga-attempt[data-attempt="2"]{left:463px}
+.ga-highfi .ga-attempt[data-attempt="3"]{left:890px}
+.ga-highfi.is-final .ga-attempt[data-attempt="1"]{scale:.52;translate:0 50px;filter:grayscale(1);opacity:.42}
+.ga-highfi.is-final .ga-attempt[data-attempt="2"]{scale:.52;translate:-205px 50px;filter:grayscale(1);opacity:.42}
+.ga-highfi.is-final .ga-attempt[data-attempt="3"]{scale:1.7;translate:-360px -95px;z-index:2}
+.ga-chapter-nav{position:absolute;bottom:0;left:0;width:100%;height:66px;display:flex;justify-content:center;align-items:center;gap:22px;font-size:12px;color:#786d58}
+.ga-chapter-nav button{display:grid;place-items:center;border:0;background:none;padding:8px;color:inherit;cursor:pointer;font-size:20px}
+.ga-chapter-nav button:disabled{opacity:.2;cursor:default}
+.ga-chapter-dots{display:flex;gap:4px}
+.ga-chapter-dots button{width:22px;height:22px;padding:0}
+.ga-chapter-dots button::before{content:'';width:5px;height:5px;border-radius:50%;background:#c2b496;transition:transform .2s,background .2s}
+.ga-chapter-dots button[aria-current=step]::before{background:#b48400;transform:scale(1.6)}
+.ga-chapters [data-zoom-src]{cursor:zoom-in;outline-offset:4px}
+.ga-chapters [data-zoom-src]:focus-visible{outline:2px solid #b48400}
+.project-photo-dialog{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:50px;border:0;background:#15130fe8;overflow:hidden}
+.project-photo-dialog[open]{display:flex;align-items:center;justify-content:center}
+.project-photo-dialog::backdrop{background:#0008;backdrop-filter:blur(10px)}
+.project-photo-dialog>img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+@media(prefers-reduced-motion:reduce){.ga-highfi .ga-attempt{transition:none}}
+/* Refined five-view presentation: progressive disclosure inside the requirements view. */
+.ga-opening{padding:0 110px;max-width:1250px}
+.ga-opening>div,.ga-opening p{white-space:normal!important;overflow-wrap:anywhere;max-width:100%;font-size:24px!important}
+.ga-opening>div{font-weight:400}
+.ga-opening p:last-child{font-weight:700}
+.ga-requirements-build{position:absolute;height:680px}
+.ga-requirements-build .ga-core-grid{position:absolute;top:20px;left:0;right:0;gap:45px}
+.ga-requirements-build .ga-core-grid .ga-chapter-card>p:first-child{font-size:28px!important}
+.ga-requirements-build .ga-core-grid .ga-chapter-card>p:last-child{font-size:22px!important}
+.ga-requirements-down{position:absolute;top:210px;left:50%;translate:-50% 0;width:170px;height:90px;background:#0000001f;clip-path:polygon(34% 0,66% 0,66% 52%,100% 52%,50% 100%,0 52%,34% 52%)}
+.ga-build-hint{position:absolute;top:340px;left:0;right:0;text-align:center;color:#92856d;font-size:16px;transition:opacity .3s}
+.project-markdown .ga-demand-title{position:absolute;top:320px;left:0;right:0;text-align:center;font-size:60px;line-height:1.2;font-weight:700;color:#0003;margin:0;opacity:0;translate:0 20px;transition:opacity .55s,translate .65s cubic-bezier(.22,1,.36,1)}
+.ga-demand-cards{position:absolute;top:450px;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;opacity:0;translate:0 30px;visibility:hidden;transition:opacity .6s ease,translate .8s cubic-bezier(.22,1,.36,1),visibility .6s}
+.ga-requirements-build.is-built .ga-demand-cards,.ga-requirements-build.is-built .ga-demand-title{opacity:1;translate:0 0;visibility:visible}
+.ga-requirements-build.is-built .ga-build-hint{opacity:0}
+.ga-requirements-build .ga-demand-lines{z-index:1;pointer-events:none}
+.ga-solution-canvas{position:absolute;width:1330px;height:1000px;overflow:hidden}
+.ga-restored-solution{top:-1840px;height:2840px}
+.ga-coordinate-axes{position:absolute;inset:0;width:1330px;height:1000px;overflow:visible;pointer-events:none}
+.ga-coordinate-axes .ga-axis-line{stroke:#000;stroke-opacity:.12;stroke-width:11;fill:none}
+.ga-coordinate-axes .ga-axis-tip{fill:#000;fill-opacity:.12}
+.ga-solution-canvas .ga-connector{animation:ga-restored-line 1.4s cubic-bezier(.22,1,.36,1) .3s backwards}
+@keyframes ga-restored-line{from{opacity:0;clip-path:inset(0 0 100% 0)}to{opacity:1;clip-path:inset(0)}}
+.ga-chapter:has(.ga-lowfi){gap:12px}
+.ga-chapter>.ga-lowfi-tabs{flex:none;gap:30px;margin:0;align-self:center}
+.ga-chapter>.ga-lowfi-tabs button{padding:5px 3px;font-size:18px}
+.ga-highfi{height:620px}
+.ga-highfi .ga-attempt{top:35px;transition:scale .8s cubic-bezier(.22,1,.36,1);filter:none;opacity:1}
+.ga-highfi.is-final .ga-attempt[data-attempt="1"],.ga-highfi.is-final .ga-attempt[data-attempt="2"]{scale:1;translate:0;filter:none;opacity:1}
+.ga-highfi.is-final .ga-attempt[data-attempt="3"]{scale:1.06;translate:-8px -5px;filter:none;opacity:1;z-index:2}
+@media(prefers-reduced-motion:reduce){.ga-demand-cards,.ga-demand-title{transition:none}.ga-solution-canvas .ga-connector{animation:none}}
+/* Revised Figma solution, plus continuous low-fidelity reading. */
+.ga-new-solution{height:1209px}
+.ga-new-solution-layout{top:0;height:1209px}
+.ga-chapter:has(.ga-new-solution)>h2{display:none}
+.ga-design-axis-clip,.ga-design-axis-reveal{position:absolute;inset:0}
+.ga-design-axis-y{clip-path:inset(0 calc(100% - 34px) 0 0)}
+.ga-design-axis-x{clip-path:inset(289px 0 99px 34px)}
+.ga-lowfi-page .ga-chapter-fit{overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:24px 0 40px;scrollbar-width:thin;scrollbar-color:#c6b899 transparent}
+.ga-lowfi-track{position:relative;overflow:hidden;margin:0 auto}
+.ga-lowfi-long{position:absolute;display:flex;flex-direction:column;gap:90px}
+.ga-lowfi-long .ga-lowfi-panel{flex:none;margin:0}
+
+.ga-solution-connections{position:absolute;inset:0;width:1330px;height:1209px;overflow:visible;pointer-events:none}
+.ga-new-solution-layout [data-node-id="258:734"]{background:#efe6d5}
+
+/* Match the outer page arrow; no chapter dots or page counter. */
+.ga-chapter-window{height:calc(100% - 82px)}
+.ga-chapter-forward{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;width:208px;min-height:50px;gap:8px;padding:0;border:0;background:transparent;color:#000;font:16px/1 'Noto SC',sans-serif;cursor:pointer;z-index:8}
+.ga-chapter-forward img{display:block;flex:none;width:80px;height:26px;max-width:none}
+.ga-chapter-forward:hover{background:transparent;opacity:.6}
+.ga-chapter-forward.is-end{flex-direction:column-reverse;gap:8px}
+.ga-chapter-forward.is-end img{transform:scaleY(-1)}
+.ga-solution-connections{z-index:3}
+.ga-new-solution-layout [data-node-id="258:734"]{background:transparent}
+/* Compact body type and matched title-to-copy spacing. */
+.ga-requirements-build{height:650px}
+.project-markdown .ga-requirements-build .ga-core-title{position:absolute;top:0;left:0;right:0;font-size:60px;line-height:72px;margin:0;text-align:center}
+.ga-requirements-build .ga-core-grid{top:112px}
+.ga-requirements-down{top:270px;height:70px;width:140px}
+.ga-build-hint{top:370px;font-size:14px}
+.project-markdown .ga-demand-title{top:365px;line-height:72px}
+.ga-demand-cards{top:477px}
+.ga-chapter-forward{font-size:16px}
+/* High-fidelity studies: tabs and a two-image stack, centered as one composition. */
+.ga-highfi-stacked{height:700px}
+.project-markdown .ga-highfi-stacked>h2{position:absolute;top:0;left:0;right:0;text-align:center;margin:0;font-size:72px;line-height:1.15}
+.ga-highfi-tabs{position:absolute;top:100px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:35px}
+.ga-highfi-tabs button{border:0;padding:6px 0;background:none;font:16px/1.5 'Noto SC',sans-serif;color:#756b57;cursor:pointer;transition:color .2s,transform .2s}
+.ga-highfi-tabs button:hover{background:none;color:#000;transform:translateY(-2px)}
+.ga-highfi-tabs button[aria-selected=true]{color:#b48400;text-decoration:underline;text-underline-offset:8px}
+.ga-stack-gallery{position:absolute;left:0;top:170px;width:1330px;height:510px}
+.ga-stack-gallery button{padding:0;border:0;background:transparent;border-radius:0;cursor:pointer}
+.ga-stack-gallery button:hover{background:transparent}
+.ga-stack-main{position:absolute;left:265px;top:0;width:800px;height:450px;isolation:isolate}
+.project-body .project-markdown .ga-chapters .ga-stack-gallery img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}
+.ga-stack-main img{position:absolute;inset:0}
+.ga-stack-back{transform:translate(-14px,-14px);opacity:.72;z-index:0}
+.ga-stack-front{z-index:1}
+.ga-stack-side{position:absolute;top:75px;width:210px;height:118.125px;opacity:.7;transition:opacity .2s,transform .2s}
+.ga-stack-side:hover{opacity:1;transform:translateY(-3px)}
+.ga-stack-previous{left:0}
+.ga-stack-following{right:0}
+.ga-stack-caption{position:absolute;top:478px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:18px;font-size:14px;line-height:1.5;color:#756b57}
+@media(prefers-reduced-motion:reduce){.ga-highfi-tabs button,.ga-stack-side{transition:none}}
+
+.ga-stack-side img{position:absolute;inset:0}
+.ga-stack-side-back{translate:-7px -7px;opacity:.65}
+
+.ga-stack-main img{will-change:transform,opacity;backface-visibility:hidden}
+/* Colored connections use 50% alpha, including arrowheads. */
+.ga-requirements-build .ga-demand-lines,.ga-solution-connections{opacity:.5}
+/* SS: one Figma content frame per viewport; no presentation footer. */
+.project-sheet.is-slide-deck .project-body{padding:0;border:0;min-height:0}
+.project-sheet.is-slide-deck .body-markdown{width:100%;max-width:none;margin:0}
+.project-slides{position:relative;height:calc(100dvh - 55px);width:100%;overflow:hidden}
+.project-slides-window{position:relative;width:calc(100% - 48px);margin:0 24px;height:calc(100% - 82px);overflow:hidden}
+.project-ppt-slide{position:absolute;transform-origin:top left;overflow:hidden}
+.project-ppt-slide[hidden]{display:none!important}
+.ss-ppt-canvas{position:relative;width:1920px;height:1080px;overflow:hidden;background:#fefbf4;font:400 16px/1.5 'PuHui','Noto SC',sans-serif;color:#000}
+.ss-ppt-canvas *{box-sizing:border-box;border:0 solid;margin:0;padding:0;font:inherit;color:inherit}
+.project-body .project-markdown .ss-ppt-canvas img{display:block;max-width:none;aspect-ratio:auto;object-fit:fill;background:none;margin:0;width:auto;height:auto}
+.project-body .project-markdown .project-slides .ga-chapter-forward img{display:block;width:80px;height:26px;max-width:none;aspect-ratio:auto;background:none;margin:0}
+/* SS native case-study typography and composition, replacing the dark PPT canvas. */
+.ss-editorial-page{color:#171713;font:400 20px/1.65 'Noto SC',sans-serif;display:flex;align-items:center;justify-content:center}
+.ss-editorial-content{width:100%;padding:35px 48px;max-height:100%;box-sizing:border-box}
+.ss-editorial-heading{margin:0 0 36px!important}
+.project-markdown .ss-editorial-heading .ss-kicker{color:#8a806c;font-size:16px;letter-spacing:.12em;margin:0 0 10px!important}
+.project-markdown .ss-editorial-heading h2{font:500 52px/1.2 'PuHui','Noto SC',sans-serif;color:#171713;margin:0!important;border:0;padding:0}
+.project-markdown .ss-editorial-page h3{font:600 24px/1.5 'Noto SC',sans-serif;color:#171713;margin:0 0 12px}
+.project-markdown .ss-editorial-page p{margin:0 0 16px;line-height:1.7}
+.project-markdown .ss-editorial-page .ss-lead{font-size:24px;line-height:1.7;margin-bottom:35px}
+.ss-responsibilities{display:grid;grid-template-columns:1fr 1fr;gap:38px 60px;margin-top:60px}
+.ss-responsibilities>div{display:flex;gap:22px;align-items:baseline;border-top:1px solid #cfc5b2;padding-top:22px}
+.ss-responsibilities>div>span{color:#B48400;font-size:20px}
+.project-markdown .ss-responsibilities h3{font-size:26px;font-weight:500}
+.ss-library-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 26px;align-items:end}
+.ss-library-grid figure,.ss-hifi-scope figure{margin:0;min-width:0}
+.project-body .project-markdown .ss-library-grid img{display:block;width:100%;height:230px;object-fit:contain;aspect-ratio:auto;margin:0;background:transparent}
+.ss-library-grid figcaption{margin-top:10px;text-align:left;font-size:18px;color:#514b40}
+.ss-hifi-scope{display:grid;grid-template-columns:340px 1fr;gap:38px;align-items:center}
+.project-markdown .ss-hifi-scope ul{margin:0 0 26px;padding-left:1.2em;line-height:1.8}
+.ss-hifi-scope small{color:#70695d;font-size:17px}
+.project-body .project-markdown .ss-hifi-scope img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;margin:0;background:transparent}
+.ss-ux-map{display:grid;grid-template-columns:1fr 1fr;gap:75px}
+.project-markdown .ss-ux-map h3{color:#B48400;margin-bottom:28px}
+.ss-ux-map dl{margin:0}
+.ss-ux-map dl>div{border-top:1px solid #cfc5b2;padding:17px 0}
+.ss-ux-map dt{font-size:22px;font-weight:600;margin-bottom:7px}
+.ss-ux-map dd{margin:0;color:#514b40;font-size:19px;line-height:1.8}
+.ss-page-intro{color:#70695d;font-size:17px}
+.ss-state-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);gap:35px;align-items:center}
+.ss-design-notes{list-style:none!important;counter-reset:design-note;margin:0!important;padding:0!important;font-size:17px;line-height:1.65}
+.ss-design-notes li{counter-increment:design-note;position:relative;padding-left:28px;margin-bottom:16px}
+.ss-design-notes li::before{content:counter(design-note,decimal-leading-zero);position:absolute;left:0;top:2px;color:#B48400;font-size:12px;font-weight:600}
+.ss-mail-demo{height:460px;border:1px solid #a79f8e;background:#dfd8c8;overflow:hidden;position:relative;color:#171713}
+.ss-mail-panel{position:relative;width:100%;height:100%;padding:17px;box-sizing:border-box;background:rgba(255,255,255,.16)}
+.ss-mail-caption{font-size:19px;font-weight:600;margin-bottom:15px}
+.ss-mail-caption small{font-size:13px;font-weight:400}
+.ss-mail-columns{display:grid;grid-template-columns:43% 57%;height:calc(100% - 66px)}
+.ss-mail-list{position:relative;overflow:hidden;padding-right:14px;border-right:1px solid #aaa293;display:flex;flex-direction:column}
+.ss-mail-row{display:flex;align-items:center;gap:9px;border:1px solid #b7ae9c;min-height:43px;padding:5px 8px;margin-bottom:5px;font-size:12px;line-height:1.3;box-sizing:border-box;background:rgba(255,255,255,.12)}
+.ss-mail-row.is-current{border-color:#B48400;background:rgba(164,125,8,.12)}
+.ss-mail-row b{font-weight:500;display:block}.ss-mail-row div>span{display:block;font-size:9px;color:#6e6659;margin-top:3px}
+.ss-mail-row small{margin-left:auto;font-size:8px;white-space:nowrap;color:#6e6659}
+.ss-mail-status{color:#8f742e;font-size:17px}
+.ss-mail-list footer{margin-top:auto;padding-top:7px;display:flex;gap:10px;font-size:9px;white-space:nowrap}
+.ss-mail-detail{padding:0 0 0 14px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.ss-empty-symbol{font-size:75px;color:#b4aa96;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);line-height:1}
+.ss-mail-detail>.ss-mail-heading{border-bottom:1px solid #b7ae9c;padding-bottom:9px;font-size:12px;line-height:1.8}
+.ss-mail-detail>.ss-mail-heading b{font-size:15px;font-weight:500}.ss-mail-detail>.ss-mail-heading div>span{float:right}.ss-mail-detail>.ss-mail-heading small{font-size:9px;color:#6e6659}
+.ss-mail-copy{font-size:10px;line-height:1.8;overflow:hidden;flex:1;min-height:0;padding-top:10px;white-space:normal}
+.ss-callout{position:absolute;bottom:9px;left:17px;font-size:9px;line-height:1;border:1px solid #a79f8e;padding:3px 10px}
+.ss-rewards{flex-shrink:0;border-top:1px solid #b7ae9c;padding-top:7px;font-size:10px;line-height:1.3;margin-top:8px}
+.ss-rewards>div{display:flex;gap:6px;margin:7px 0}.ss-rewards>div>span{font-size:7px;text-align:center}.ss-rewards i{display:block;width:36px;height:30px;border:1px solid #b7ae9c;margin-bottom:3px}
+.ss-rewards button{display:block;margin-left:auto;border:1px solid #B48400;background:transparent;padding:4px 12px;font:inherit;pointer-events:none}
+.ss-mail-full-empty{position:absolute;inset:65px 17px 37px}
+.ss-reward-popup{border:1px solid #b7ae9c;padding:14px;margin-top:22px;font-size:13px;line-height:1.6}
+.ss-reward-popup>div{display:flex;gap:5px;margin:14px 0}.ss-reward-popup>div span{border:1px solid #b7ae9c;padding:12px 3px;font-size:9px}.ss-reward-popup>span{display:block;text-align:center}
+.project-markdown .ss-state-layout aside>p{font-size:20px;line-height:1.8}
+.ss-lowfi-canvas{background:transparent;color:#171713}
+.project-body .project-markdown .ss-lowfi-canvas p{margin:0;padding:0}
+.project-body .project-markdown .ss-lowfi-canvas img[src$=".svg"]{filter:brightness(0);opacity:.65}
+/* Keep the original yellow annotation disks; other wireframe SVGs use the dark palette. */
+.project-body .project-markdown .ss-lowfi-canvas img[src$="e981ccdda7032d27112bb8516ef522be936ea233.svg"],
+.project-body .project-markdown .ss-lowfi-canvas img[src$="60ee28e7f90f3f4018075f408325fe22e37fa1f7.svg"],
+.project-body .project-markdown .ss-lowfi-canvas img[src$="d55bbae73c310d61c455362837f3556050ed1b94.svg"]{filter:none;opacity:1}
+.ss-lowfi-canvas [data-node-id="263:2549"],.ss-lowfi-canvas [data-node-id="263:2552"],.ss-lowfi-canvas [data-node-id="263:2556"]{background:#39362e!important}
+.ss-lowfi-canvas [data-node-id="263:2550"],.ss-lowfi-canvas [data-node-id="263:2553"],.ss-lowfi-canvas [data-node-id="263:2557"]{color:#fff!important}
+/* Work 01 follows the original PPT image composition without changing aspect ratios. */
+.ss-library-composition{position:relative;width:100%;aspect-ratio:1720/725}
+.ss-library-slot{position:absolute}
+.project-body .project-markdown .ss-library-slot img{display:block;width:100%;height:100%;max-width:none;aspect-ratio:auto;object-fit:contain;margin:0;background:none}
+.ss-library-legend{position:absolute;left:77.6744%;top:2.9%;width:22.3256%}
+.project-markdown .ss-library-legend h3{font-size:24px;font-weight:400;color:#B48400;margin:0 0 18px}
+.ss-library-legend>div{display:grid;grid-template-columns:repeat(3,max-content);justify-content:space-between;gap:16px 12px;font-size:16px;line-height:1.5;color:#171713}
+.project-long-slide{overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#b9ad97 transparent}
+.project-long-part{position:relative;width:100%;overflow:hidden}
+.project-slides .ga-chapter-forward[hidden]{display:none}
+/* The media gallery accepts hosted video as a first-class slide. */
+.gallery-video{position:absolute;inset:0;z-index:1;background:#d6ccb7}
+.gallery-video[hidden]{display:none}
+.gallery-video iframe{display:block;width:100%;height:100%;border:0}
+.gallery-main.has-video .gallery-nav{z-index:3;width:40px;top:40%;bottom:40%;height:20%;opacity:1}
+.gallery-main.has-video .gallery-count{z-index:2;pointer-events:none}
+.gallery-video-thumb{display:grid;place-items:center;width:100%;height:100%;background:#d9cfbb;color:#514b40;font:500 15px/1.3 'Noto SC',sans-serif}
+.project-award{flex:none;width:209px;margin:0 0 0 auto;align-self:flex-end}
+.project-award[hidden]{display:none}
+.project-award figcaption{text-align:right;font:700 20px/1.4 'Noto SC',sans-serif;color:#000;margin:0 0 12px}
+.project-award img{display:block;width:209px;height:302px;object-fit:contain}
+/* MEL body: native presentation content, shared continuous showcase reader. */
+.mel-ppt-canvas{position:relative;width:1920px;height:1080px;overflow:hidden;background:transparent;color:#171713;font:400 16px/1.5 'PuHui','Noto SC',sans-serif}
+.mel-ppt-canvas *{box-sizing:border-box;border:0 solid;margin:0;padding:0;font:inherit;color:inherit}
+.project-body .project-markdown .mel-ppt-canvas p{margin:0;padding:0}
+.project-body .project-markdown .mel-ppt-canvas img{display:block;max-width:none;aspect-ratio:auto;object-fit:fill;background:none;margin:0;width:auto;height:auto}
+/* Preserve crisp pixel artwork while allowing native diagram images to interpolate. */
+.mel-ppt-canvas [data-node-id="281:3703"] img,.mel-ppt-canvas [data-node-id="281:3708"] img,.mel-ppt-canvas [data-node-id="281:3713"] img,.mel-ppt-canvas [data-node-id="281:3714"] img{image-rendering:pixelated}
+/* Invert the diagram ink for the light page; alpha stays untouched and hues are retained. */
+.project-body .project-markdown .mel-ppt-canvas [data-node-id="281:3748"] img,
+.project-body .project-markdown .mel-ppt-canvas [data-node-id="281:3651"] img,
+.project-body .project-markdown .mel-ppt-canvas [data-node-id="281:3658"] img{filter:invert(1) hue-rotate(180deg)}
+/* SAIC: each selected frame remains an independent reading viewport. */
+.saic-ppt-canvas{position:relative;width:1920px;height:1080px;overflow:hidden;background:transparent;color:#171713;font:400 16px/1.5 'PuHui','Noto SC',sans-serif}
+.saic-ppt-canvas *{box-sizing:border-box;border:0 solid;margin:0;padding:0;font:inherit;color:inherit}
+.project-body .project-markdown .saic-ppt-canvas p{margin:0;padding:0}
+.project-body .project-markdown .saic-ppt-canvas img{display:block;max-width:none;aspect-ratio:auto;object-fit:fill;background:none;margin:0;width:auto;height:auto}
+/* Background diagram arrow uses muted dark ink on the light paper. */
+.project-body .project-markdown .saic-ppt-canvas img[src$="30043eda91775cf13d52143e53f3bc1100f27a9e.svg"]{filter:brightness(0);opacity:.35}
+/* Keep the original compact English diagram labels on one line with the local font. */
+.saic-ppt-canvas [data-node-id="279:2390"],.saic-ppt-canvas [data-node-id="279:2392"],.saic-ppt-canvas [data-node-id="279:2402"]{font-size:29px!important;white-space:nowrap!important;word-break:normal!important}
+/* Brand-history reasoning stays on the paper surface. */
+.saic-ppt-canvas [data-node-id="279:2387"],.saic-ppt-canvas [data-node-id="279:2403"],.saic-ppt-canvas [data-node-id="279:2422"]{background:transparent!important}
+.saic-history-funnel{position:absolute;inset:0;width:1122px;height:575px;z-index:0;pointer-events:none;overflow:visible}
+.saic-history-funnel path{fill:#0093EE;opacity:.13}
+.saic-ppt-canvas [data-node-id="279:2429"]> :not(.saic-history-funnel){z-index:1}
+.saic-framework-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:0}
+.saic-framework-guide path{fill:none;stroke:#0093EE;stroke-width:1.6;stroke-opacity:.34;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+/* Persona insights: readable quotations, followed by shared traits. */
+.saic-ppt-canvas [data-node-id="279:3002"]{top:480px!important}
+.saic-ppt-canvas :is([data-node-id="279:3015"],[data-node-id="279:3016"],[data-node-id="279:3017"]){top:502px!important}
+.saic-ppt-canvas [data-node-id="279:3018"]{top:716px!important}
+.saic-ppt-canvas :is([data-node-id="279:3019"],[data-node-id="279:3021"],[data-node-id="279:3023"],[data-node-id="279:3025"]){top:540px!important;width:347px!important;display:block!important;background:transparent!important;padding:28px 0 8px 18px!important;border-left:2px solid rgba(0,147,238,.25);isolation:isolate}
+.saic-ppt-canvas [data-node-id="279:3025"]{top:754px!important}
+.saic-ppt-canvas :is([data-node-id="279:3019"],[data-node-id="279:3021"],[data-node-id="279:3023"],[data-node-id="279:3025"])::before{content:'“';position:absolute;left:12px;top:-14px;font:84px/1 Georgia,serif;color:#0093EE;opacity:.45;pointer-events:none}
+.saic-ppt-canvas :is([data-node-id="279:3020"],[data-node-id="279:3022"],[data-node-id="279:3024"],[data-node-id="279:3026"]){width:auto!important;white-space:normal!important;font-size:19px!important;line-height:1.65!important;font-weight:400!important;color:#39362f!important}
+.saic-ppt-canvas [data-node-id="279:2997"]{top:540px!important;opacity:.3}
+.saic-ppt-canvas [data-node-id="279:3014"]{top:954px!important;opacity:.5}
+.saic-ppt-canvas [data-node-id="279:3013"]{top:985px!important;font-weight:600!important}
+.saic-ppt-canvas [data-node-id="279:3011"]{left:362px!important;top:978px!important}
+.saic-ppt-canvas [data-node-id="279:3009"]{left:710px!important;top:978px!important}
+/* Warm, readable strategy panels and the energy-pouring illustration. */
+.saic-ppt-canvas :is([data-node-id="279:3053"],[data-node-id="279:3057"],[data-node-id="279:3139"]){background:#dceaf2!important;color:#171713!important}
+.saic-ppt-canvas [data-node-id="279:3113"]{background:#e1edf5!important;border-color:#0093EE!important}
+.saic-ppt-canvas :is([data-node-id="279:3110"],[data-node-id="279:3111"]){color:#0093EE!important}
+.saic-ppt-canvas :is([data-node-id="279:3157"],[data-node-id="279:3158"],[data-node-id="279:3159"]){background:#e1edf5!important}
+.saic-ppt-canvas [data-node-id="279:3160"]{mix-blend-mode:normal!important}
+.saic-energy-monochrome{filter:grayscale(1)}
+.saic-energy-person{filter:sepia(1) saturate(2.7) hue-rotate(165deg);pointer-events:none}
+/* Use a real painted edge instead of a rotated line inside a zero-width flex box. */
+.saic-ppt-canvas [data-node-id="279:2320"]{width:1px!important;border-left:1px solid #70695d!important;z-index:2}
+.saic-ppt-canvas [data-node-id="279:2320"]>div{display:none!important}
+/* User-supplied portraits retain their own blur, without stacked opacity reduction. */
+.saic-ppt-canvas [data-node-id="279:2997"]{opacity:1;top:650px!important;height:285px!important}
+.saic-ppt-canvas :is([data-node-id="279:2998"],[data-node-id="279:2999"],[data-node-id="279:3000"]){opacity:1!important}
+.saic-ppt-canvas [data-node-id="279:3025"]{background:rgba(239,230,213,.93)!important}
+
+.saic-ppt-canvas [data-node-id="279:3133"] img{opacity:.2}
+.saic-ppt-canvas .saic-pouring-logo{position:absolute;inset:0;transform-origin:605px 550px;pointer-events:none}
+
+/* Brief semantic accents after the four research keywords pop out. */
+.saic-keyword-spark{position:absolute;color:#0093EE;font:42px/1 Georgia,serif;opacity:0;pointer-events:none}
+.saic-keyword-spark.spark-one{right:-20px;top:-20px}
+.saic-keyword-spark.spark-two{left:10px;bottom:-22px;font-size:28px}
+.saic-keyword-speed{position:absolute;left:-50px;width:65px;height:3px;background:#0093EE;border-radius:2px;opacity:0;pointer-events:none}
+.saic-keyword-speed.speed-0{top:32px;width:58px}
+.saic-keyword-speed.speed-1{top:63px;left:-72px;width:80px}
+.saic-keyword-speed.speed-2{top:94px;width:46px}
+.saic-budget-bracket{position:absolute;top:22px;bottom:22px;width:12px;border:2px solid #0093EE!important;opacity:0;pointer-events:none}
+.saic-budget-bracket.bracket-left{left:-14px;border-right:0!important}
+.saic-budget-bracket.bracket-right{right:-14px;border-left:0!important}
+
+.saic-ppt-canvas :is([data-node-id="279:3003"],[data-node-id="279:3004"],[data-node-id="279:3005"]){transform-origin:top center}
+
+/* Give the crossover example more room while keeping it inside its card. */
+.saic-ppt-canvas [data-node-id="279:3164"]{left:760px!important;width:400px!important}
+/* Toyota uses the same paper canvas, with light cultural-evolution bands. */
+.toyota-ppt-canvas :is([data-node-id="279:2510"],[data-node-id="279:2511"]){background:linear-gradient(90deg,rgba(0,147,238,0),rgba(0,147,238,.08))!important;border-color:#c8bda9!important}
+.toyota-ppt-canvas [data-node-id="279:2607"]{color:#70695d!important}
+.toyota-ppt-canvas ul{list-style:disc;padding-left:1.2em}
+/* Background reasoning arrows retain contrast on paper without competing with text. */
+.toyota-ppt-canvas :is([data-node-id="279:2359"],[data-node-id="279:2798"],[data-node-id="279:2821"]) img{filter:brightness(0)!important;opacity:.16}
+
+/* Concept project text accents: preserve graphic colors and panel backgrounds. */
+.saic-ppt-canvas :is([data-node-id="279:3002"],[data-node-id="279:3110"],[data-node-id="279:3111"]){color:#0093EE!important}
+.saic-ppt-canvas :is([data-node-id="279:3019"],[data-node-id="279:3021"],[data-node-id="279:3023"],[data-node-id="279:3025"])::before{color:#0093EE}
+
+/* A deeper companion to #0093EE keeps white keyword lettering legible. */
+.saic-ppt-canvas .concept-keyword{background:#006FB5!important;color:#fff!important}
+.saic-ppt-canvas .concept-keyword p,.saic-ppt-canvas .concept-keyword p span{color:#fff!important}
+
+/* Use one complete system CJK family, avoiding mixed subset-font glyph weights. */
+

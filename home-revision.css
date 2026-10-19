@@ -1,0 +1,64 @@
+/* Home draft: viewport canvas and camera scale stay unchanged. */
+.figma-layout.screen-mode #home{padding-top:0}
+.figma-layout.screen-mode #home>.display-title{position:absolute;top:calc(2.73vh + var(--home-editorial-shift) - var(--home-title-tighten,0px));left:0;width:100%;margin:0;font-size:12.71vw;line-height:1.42;z-index:1;pointer-events:none}
+.home-masthead{position:absolute;top:4.5vh;left:1.25%;right:1.25%;z-index:4;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+.home-signature{margin:0;font-size:clamp(13px,1.389vw,20px);font-weight:300;line-height:1.5}
+.home-quick-nav{display:flex;gap:20px;padding:0;pointer-events:auto}
+.home-quick-nav a{font-size:clamp(14px,1.389vw,20px);font-weight:400;line-height:1.5;text-decoration:none;transition:transform .2s,opacity .2s}
+.home-quick-nav a:first-child{color:#b48400}.home-quick-nav a:last-child{color:#980003}
+.home-quick-nav a:hover{transform:translateY(-2px)}
+.home-word-stage{--word-line:clamp(28px,2.71vw,50px);position:absolute;top:calc(max(27.15vh,19.3vw) + var(--home-editorial-shift) - var(--home-subtitle-tighten,0px));left:1.25%;right:1.25%;z-index:1;pointer-events:none}
+.home-word-reel{position:absolute;top:0;width:43%;overflow:hidden;height:var(--word-line)}
+.home-word-left{left:0;height:var(--word-line)}
+.home-word-right{right:0;height:var(--word-line);text-align:right}
+.home-word-track{width:100%}
+.home-word-track ul{display:block;list-style:none;padding:0;margin:0}
+.home-word-track li{display:block;font-size:clamp(20px,2.222vw,38px);line-height:var(--word-line);font-weight:400;white-space:nowrap;letter-spacing:.015em}
+.home-for{margin:0;text-align:center;font-size:clamp(20px,2.222vw,38px);line-height:var(--word-line);font-weight:400}
+@media(prefers-reduced-motion:reduce){.home-word-track{animation:none}.home-quick-nav a{transition:none}}
+
+.home-word-track li[hidden]{display:none}
+/* Home wordmarks share the ERIC LIANG display typeface. */
+body .home-word-stage :is(li,p){font-family:Michroma,sans-serif!important}
+
+/* Satin graphite letters reveal a mirrored metal finish under the pointer. */
+.figma-layout #home>.display-title{perspective:900px;white-space:nowrap}
+.figma-layout[data-page=home] #home>.display-title{animation:none}
+#home>.display-title::before,#home>.display-title::after{content:none}
+body #home .hero-title-char{position:relative;display:inline-block;font-family:Michroma,sans-serif!important;transform-origin:50% 78%;color:transparent;background:linear-gradient(165deg,#090d0e 10%,#252c2d 36%,#0c1011 51%,#202728 72%,#050708 93%);background-clip:text;-webkit-background-clip:text;vertical-align:baseline;will-change:transform}
+body #home .hero-title-space{display:inline-block;width:.21em}
+body #home .hero-title-char::after{content:attr(data-char) / "";position:absolute;inset:0;pointer-events:none;color:transparent;background:linear-gradient(118deg,#17242d 0%,#aebdc4 13%,#faffff 20%,#263c49 27%,#d7b98a 35%,#fff9e4 40%,#503c2b 46%,#b8d8e6 53%,#faffff 58%,#24485c 64%,#a3bac5 73%,#fff8df 82%,#2b393b 92%);background-size:180% 160%;background-position:var(--metal-position,50%) 50%;background-clip:text;-webkit-background-clip:text;mask-image:radial-gradient(ellipse 135px 140px at var(--material-x,-300px) var(--material-y,50%),#000 20%,transparent 100%);opacity:var(--material-alpha,0);transition:opacity .18s}
+@keyframes home-title-enter{from{opacity:0;translate:0 42px;filter:blur(12px)}to{opacity:1;translate:0 0;filter:blur(0)}}
+@media(prefers-reduced-motion:reduce){.figma-layout #home>.display-title{animation:none}.hero-title-char{will-change:auto}body #home .hero-title-char::after{display:none}}
+
+/* Let the transparent WebGL foreground cross the lower edge of the editorial type. */
+.figma-layout #home{--home-editorial-shift:clamp(20px,4vh,60px)}
+.figma-layout #home .home-playground{z-index:0}
+body[data-page=home] .home-masthead{animation:home-copy-enter 1.2s 3.15s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] .home-word-left{animation:home-copy-enter 1.2s 3.35s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] .home-for{animation:home-copy-enter 1.2s 3.5s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] .home-word-right{animation:home-copy-enter 1.2s 3.65s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] #home .home-playground{animation:home-scene-enter 2.5s 4.95s cubic-bezier(.22,1,.36,1) both}
+body[data-page=home] #home>.screen-arrow{animation:home-copy-enter 1.2s 6.8s cubic-bezier(.22,1,.36,1) both}
+@keyframes home-copy-enter{from{opacity:0;translate:0 24px;filter:blur(6px)}to{opacity:1;translate:0 0;filter:blur(0)}}
+@keyframes home-scene-enter{from{opacity:0;translate:0 38px}to{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){body[data-page=home] #home :is(.display-title,.home-masthead,.home-word-left,.home-word-right,.home-for,.home-playground,.screen-arrow){animation:none}}
+/* Keep FOR readable while the sandbox crosses the main wordmark behind it. */
+.home-word-stage{z-index:auto}
+.home-word-reel{z-index:1}
+.home-for{position:relative;z-index:3;pointer-events:none}
+
+/* Shared letter physics; only the name and Chinese signature reveal metal. */
+.hero-physics-char{position:relative;display:inline-block;transform-origin:50% 78%;vertical-align:baseline;will-change:transform}
+body #home .home-signature{font-weight:700}
+body #home .home-signature .hero-physics-char{font-family:'Noto Sans SC',sans-serif!important}
+body #home .home-word-stage .hero-physics-char{font-family:Michroma,sans-serif!important}
+.hero-material-char{color:transparent;background:linear-gradient(165deg,#090d0e 10%,#252c2d 36%,#0c1011 51%,#202728 72%,#050708 93%);background-clip:text;-webkit-background-clip:text}
+.hero-material-char::after{content:attr(data-char) / "";position:absolute;inset:0;pointer-events:none;color:transparent;background:linear-gradient(118deg,#17242d,#aebdc4 13%,#faffff 20%,#263c49 27%,#d7b98a 35%,#fff9e4 40%,#503c2b 46%,#b8d8e6 53%,#faffff 58%,#24485c 64%,#a3bac5 73%,#fff8df 82%,#2b393b);background-size:180% 160%;background-position:var(--metal-position,50%) 50%;background-clip:text;-webkit-background-clip:text;mask-image:radial-gradient(ellipse 55px 48px at var(--material-x,-300px) var(--material-y,50%),#000 20%,transparent 100%);opacity:var(--material-alpha,0);transition:opacity .14s}
+@media(prefers-reduced-motion:reduce){.hero-physics-char{will-change:auto}.hero-material-char::after{display:none}}
+
+/* Title first, supporting copy second, the playable scene last. Translate stays
+   independent of the pointer-driven transform on each letter. */
+body[data-page=home] #home>.display-title .hero-title-char{animation:home-letter-enter 1.35s calc(.2s + var(--entry-index)*.18s) cubic-bezier(.16,1,.3,1) both}
+@keyframes home-letter-enter{from{opacity:0;translate:0 .28em;filter:blur(9px)}to{opacity:1;translate:0 0;filter:blur(0)}}
+@media(prefers-reduced-motion:reduce){body[data-page=home] #home>.display-title .hero-title-char{animation:none}}

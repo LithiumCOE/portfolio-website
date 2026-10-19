@@ -87,6 +87,7 @@
 .projects-list li{direction:ltr;unicode-bidi:isolate;width:max-content;min-width:0;margin-left:auto;white-space:nowrap;transform-origin:right center;transition:color .22s,transform .22s;line-height:1.45}
 .projects-list li.project-muted{color:#a4a39c}
 .projects-list li.project-highlight{transform:scale(1.04)}
+.projects-list li.project-hover:not(.project-highlight){transform:scale(1.025)}
 .filter-announcement{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(prefers-reduced-motion:reduce){.identity-button,.identity-button::after,.projects-list li{transition:none}.identity-button:hover{transform:none}}
 
@@ -106,4 +107,11 @@
 .return-content{padding-top:var(--return-rail);min-height:calc(100dvh + var(--return-rail) - var(--screen-top) - var(--screen-bottom))}
 .figma-layout #about.return-page{--screen-top:16px;--screen-bottom:16px}
 .figma-layout #about .return-content>.screen-arrow.down{position:relative;bottom:auto;margin:40px auto 0;left:0;transform:none}
+@media(min-width:1151px){
+  .figma-layout #about .return-content{display:flex;flex-direction:column}
+  .figma-layout .about-intro .display-title{line-height:1.1}
+  .figma-layout #about .about-intro,.figma-layout #about .about-shell{flex:none}
+  .figma-layout #about .about-shell{margin-bottom:24px}
+  .figma-layout #about .return-content>.screen-arrow.down{flex:none;margin:auto auto 0}
+}
 @media(max-width:760px){.figma-layout #about.return-page{--screen-top:24px}.figma-layout #about .return-content>.screen-arrow.down{margin-top:12px}}
