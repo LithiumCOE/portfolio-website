@@ -15,7 +15,7 @@ python -m http.server 8765 --bind 127.0.0.1
 ## 当前网站
 
 - **Home（#home）**：ERIC LIANG 大标题、单词轮播、可旋转的三维城市沙盒。约 2 秒顺序入场：标题逐字、小字、沙盒；首次操作后 3D 指引箭头渐隐。
-- **About Me（#about）**：个人信息、履历、项目及身份高亮。已删除“发现，想象+思考……”引言和下方横线。
+- **About Me（#about）**：个人信息、履历、项目及身份高亮。引言为“AI-empowered designer”，保留下方横线。
 - **Selected Works（#work）**：六类作品筛选、Preview 卡片、图片/视频及 MORE 正文。三页均保留滚轮、键盘和箭头导航。
 - 三个大标题保留 Michroma，支持字母弹簧响应和局部金属材质遮罩；普通文字为本地 Noto Sans SC。自动动效遵循减少动态效果偏好。
 

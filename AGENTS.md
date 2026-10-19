@@ -189,3 +189,5 @@ MCI取消body配置，改为without MORE视频卡片，采用用户给定plvideo
 2026-10-19 收尾文档：用户认为网站已基本完成，进入局部润色及发布验收阶段。README改为当前入口说明，旧README存档docs/IMPLEMENTATION_HISTORY.md，集中状态见docs/CURRENT_STATE.md；PROJECT_BRIEF增加当前阶段说明，作品维护指南修正正文转化标准。GitHub已确认到f3fa1a0，之后About/标题和本轮文档仍本地未提交；本轮不自动推送部署。
 
 2026-10-19 用户追加授权推送：本次提交包含About引言删除、About/Selected Works标题物理与材质效果，以及收尾状态文档；不更改部署设置。
+
+2026-10-19 用户撤销删除引言/横线的修改：恢复profile-quote及其原下边线，文案为AI-empowered designer；保留三个大标题特效，用户授权推送。
