@@ -53,16 +53,16 @@ content/projects/ga/images/01.jpg
 "body": "ga/body.md"
 ```
 
-简介底部就会显示 MORE，滚轮可以继续向下看正文，点击 MORE 也能滚到正文。
+简介底部显示 MORE；点击或边界滚轮会切换到独立正文阅读状态。正文按章节/视口切换，低保真等指定板块内部为连续长页，Next / End 导航，End 返回 Preview。
 
 当前模板对应：
-- 单页简介（without MORE）：`wangquan`、`pda`、`web`、`physics`。
+- 单页简介（without MORE）：`wangquan`、`pda`、`web`、`physics`、`mci`。
 - 简介 + 正文（with MORE）：`ga`、`toyota`、`mel`、`ss`、`saic`，均已连接各自的 `intro.md` 与 `body.md`。
-- `mci` 为原 `thesis` 文件夹的新名称。
+- `mci` 为视频简介单页；R6S 已移除。
 
 直接编辑相应目录里的 MD，保存后刷新网页即可更新，不需要反复修改 JSON。页面刷新时会重新校验文件，页面内重复打开则复用预加载缓存。JSON 仅在改路径、图片列表、分类或跳转链接时需要修改。
 
-PPT/PDF 建议先导出成逐页 16:9 图片，再在 `body.md` 引用；系统不会自动转换 PPT/PDF。正文里的相对路径按当前 Markdown 文件所在目录解析：
+PPT/Figma 交付应读取真实文字与结构，转为原生 HTML/CSS，去掉 PPT 背景与页脚，使用局部素材；不要把整页截图当正文。已有 body.md 含原生布局及标注，不可用旧生成器覆盖。普通 Markdown 图片仅适用于局部内容。正文相对路径按当前 Markdown 文件所在目录解析：
 
 ```md
 # 方案展示

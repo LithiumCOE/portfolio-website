@@ -13,10 +13,11 @@
       if(large)node.style.setProperty('--entry-index',Math.max(0,letters.length-1));
       root.append(node);
     }
-    groups.push({root,letters,material,large,rect:null});
+    groups.push({root,letters,material,large,page:root.closest('.screen').id,rect:null});
   }
   mount(home.querySelector('.display-title'),{material:true,large:true});
   mount(home.querySelector('.home-signature'),{material:true});
+  document.querySelectorAll('#about .display-title,#work .selected-title').forEach(root=>mount(root,{material:true,large:true}));
   home.querySelectorAll('.home-word-track li,.home-for').forEach(root=>mount(root));
   // Tighten the visible glyph gaps, rather than the fonts' much taller line boxes.
   const metricsContext=document.createElement('canvas').getContext('2d');
@@ -46,11 +47,11 @@
   function spring(letter,key,velocity,target,dt){letter[velocity]+=((target-letter[key])*125-letter[velocity]*14)*dt;letter[key]+=letter[velocity]*dt;}
   function tick(time){
     const dt=last?Math.min((time-last)/1000,.032):1/60;last=time;stroke*=Math.exp(-dt*7);
-    const active=!reduced.matches&&document.body.dataset.page==='home'&&!document.hidden,introAge=(time-introStart)/1000,introActive=active&&introAge<6;
+    const active=!reduced.matches&&!document.hidden,introAge=(time-introStart)/1000,introActive=active&&introAge<6;
     let energy=0,hovering=false;
     for(const group of groups){
       const {root,letters,material,large}=group;
-      if(root.hidden||!group.rect?.width)continue;
+      if(root.hidden||group.page!==document.body.dataset.page||!group.rect?.width)continue;
       const rect=root.getBoundingClientRect(),inside=active&&mouse.y>=rect.top&&mouse.y<=rect.bottom&&mouse.x>=rect.left&&mouse.x<=rect.right;
       hovering ||= inside;const strength=large?1:.5;
       for(const [index,letter] of letters.entries()){
@@ -78,7 +79,7 @@
   },{passive:true});
   const leave=()=>{mouse.y=-1000;wake();};
   document.addEventListener('pointerleave',leave);document.addEventListener('visibilitychange',leave);home.addEventListener('animationend',measure);
-  new MutationObserver(()=>{leave();if(document.body.dataset.page==='home'){introStart=performance.now();measure();wake();}}).observe(document.body,{attributes:true,attributeFilter:['data-page']});
+  new MutationObserver(()=>{leave();introStart=performance.now();measure();wake();}).observe(document.body,{attributes:true,attributeFilter:['data-page']});
   new MutationObserver(()=>{measure();wake();}).observe(home.querySelector('.home-word-stage'),{attributes:true,subtree:true,attributeFilter:['hidden']});
   reduced.addEventListener('change',leave);wake();
 })();

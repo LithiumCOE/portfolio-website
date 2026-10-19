@@ -1,3 +1,11 @@
+# 当前阶段说明（2026-10-19）
+
+网站已依据 Figma 完成主要页面、作品正文和交互，进入收尾与发布前验收阶段。当前使用 WebGL 沙盒，Home/About/Selected Works 三独立画面；真实作品内容已接入。旧文中“目录为空”“待交付”“无 WebGL”等描述仅为历史记录。
+
+当前使用方法见 README.md；集中交接见 docs/CURRENT_STATE.md；实现约定见 AGENTS.md。GitHub 已推送版本 f3fa1a0，后续 About/标题效果和收尾文档已纳入本次提交，用户追加授权推送。未确认 Pages 线上部署状态。
+
+---
+
 # Portfolio Website：方案与工作流说明
 
 记录日期：2026-10-14
