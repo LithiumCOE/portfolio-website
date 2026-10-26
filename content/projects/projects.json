@@ -236,13 +236,13 @@
       "category": "web",
       "description": "玩法系统设计与高保真网页设计与前端开发",
       "intro": "physics/intro.md",
-      "gallery": [],
+      "gallery": [
+        { "src": "physics/images/overview.png", "alt": "模拟器主界面：地球视角与模拟控制" },
+        { "src": "physics/images/story-options.png", "alt": "剧情方案：预设行星发动机阵列" },
+        { "src": "physics/images/engine-setup.png", "alt": "发动机设置：位置、方向与推力调节" }
+      ],
       "modalTitle": "行星发动机模拟器",
       "categoryLabel": "网页设计",
-      "video": {
-        "url": "https://go.plvideo.cn/front/video/preview?vid=p672b1c5c86df047d0c09195a96b72fe_p",
-        "title": "行星发动机模拟器演示视频"
-      },
       "external": {
         "label": "跳转链接",
         "url": "playgrounds/planet-engine/",
@@ -335,7 +335,9 @@
       "gallery": [
         {
           "type": "video",
-          "url": "https://go.plvideo.cn/front/video/preview?vid=p672b1c5c8ff698305537dbc89322e84_p",
+          "url": "saic/videos/梁楚圻-乐趣衍化-品牌研究与设计策略.mp4",
+          "local": true,
+          "poster": "assets/covers/71af4cc83787e6112b240e7f64d87375148f6df8.png",
           "title": "乐趣衍化方案视频"
         },
         {
@@ -386,7 +388,9 @@
       "gallery": [],
       "categoryLabel": "产品设计",
       "video": {
-        "url": "https://go.plvideo.cn/front/video/preview?vid=p672b1c5c8023430762179eed5c38cc9_p",
+        "url": "mci/videos/电视机视频微调-压缩.mp4",
+          "local": true,
+          "poster": "assets/covers/1553b42bbc5652bd76bb772d105c025b4222fb79.png",
         "title": "MCI老人认知提升产品设计演示视频"
       },
       "cover": {
