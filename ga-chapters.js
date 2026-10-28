@@ -25,6 +25,10 @@ export function mountGaChapters(host,{onPreview,reduced}){
   contents[2].classList.add('ga-solution-canvas','ga-new-solution');
   const originalLayout=host.querySelector('.ga-solution-design .ga-layout').cloneNode(true);
   contents[2].append(originalLayout);
+  pages[2].classList.add('ga-solution-page');
+  const solutionBox=pages[2].querySelector('.ga-chapter-fit');
+  const solutionTrack=document.createElement('div');solutionTrack.className='ga-solution-track';
+  solutionBox.append(solutionTrack);solutionTrack.append(contents[2]);
   const axis=originalLayout.querySelector('[data-node-id="258:750"]');
   const axisImage=axis.querySelector('img');axis.replaceChildren();
   ['y','x'].forEach(direction=>{const clip=document.createElement('div');clip.className='ga-design-axis-clip ga-design-axis-'+direction;const reveal=document.createElement('div');reveal.className='ga-design-axis-reveal';reveal.append(axisImage.cloneNode(true));clip.append(reveal);axis.append(clip);});
@@ -98,10 +102,13 @@ export function mountGaChapters(host,{onPreview,reduced}){
     if(disposed||!shell.isConnected)return;
     const page=pages[current],box=page.querySelector('.ga-chapter-fit'),content=contents[current];
     content.style.transform='none';
-    if(current===3){
-      const scale=Math.min(1,box.clientWidth/1250);
+    if(current===2||current===3){
+      const width=current===2?1330:1250;
+      const track=current===2?solutionTrack:lowfiTrack;
+      const scale=Math.min(1,box.clientWidth/width);
       content.style.transform=`scale(${scale})`;content.style.left='0';content.style.top='0';
-      lowfiTrack.style.width=(1250*scale)+'px';lowfiTrack.style.height=(content.scrollHeight*scale)+'px';
+      track.style.width=(width*scale)+'px';track.style.height=((current===2?1209:content.scrollHeight)*scale)+'px';
+      if(current===2)drawSolutionConnections(false);
       return;
     }
     const width=current===2||current===4?1330:1250,height=current===1?650:current===2?1209:current===4?700:content.offsetHeight;
@@ -163,7 +170,7 @@ export function mountGaChapters(host,{onPreview,reduced}){
     const before=pages[current],after=pages[next],direction=Math.sign(next-current);
     if(!reduced){animation=before.animate([{opacity:1,translate:'0 0'},{opacity:0,translate:`0 ${-direction*65}px`}],{duration:170,easing:'ease-in',fill:'forwards'});try{await animation.finished;}catch{return;}}
     if(disposed)return;
-    before.hidden=true;animation?.cancel();after.hidden=false;current=next;fit();if(current===3)lowfiBox.scrollTop=direction<0?lowfiBox.scrollHeight:0;paint();enter();
+    before.hidden=true;animation?.cancel();after.hidden=false;current=next;fit();if(current===2||current===3){const scrollBox=current===2?solutionBox:lowfiBox;scrollBox.scrollTop=direction<0?scrollBox.scrollHeight:0;lowfiLastScroll=performance.now();}paint();enter();
     if(!reduced){animation=after.animate([{opacity:0,translate:`0 ${direction*70}px`},{opacity:1,translate:'0 0'}],{duration:520,easing:'cubic-bezier(.22,1,.36,1)'});try{await animation.finished;}catch{return;}}
     if(disposed)return;animation=null;locked=false;forward.disabled=false;
   }
@@ -182,9 +189,10 @@ export function mountGaChapters(host,{onPreview,reduced}){
   function handleWheel(event){
     event.preventDefault();if(locked)return;
     const now=performance.now(),delta=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?window.clientHeight:1);
-    if(current===3){
-      const canScroll=delta>0?lowfiBox.scrollTop+lowfiBox.clientHeight<lowfiBox.scrollHeight-2:lowfiBox.scrollTop>2;
-      if(canScroll){lowfiBox.scrollBy({top:delta,behavior:'instant'});lowfiLastScroll=now;wheel=0;return;}
+    if(current===2||current===3){
+      const scrollBox=current===2?solutionBox:lowfiBox;
+      const canScroll=delta>0?scrollBox.scrollTop+scrollBox.clientHeight<scrollBox.scrollHeight-2:scrollBox.scrollTop>2;
+      if(canScroll){scrollBox.scrollBy({top:delta,behavior:'instant'});lowfiLastScroll=now;wheel=0;return;}
       // Finish reading the edge before a fresh wheel gesture changes chapters.
       if(now-lowfiLastScroll<220){lowfiLastScroll=now;return;}
     }
@@ -195,7 +203,8 @@ export function mountGaChapters(host,{onPreview,reduced}){
   return {fit,activate(){if(ended){pages[current].hidden=true;pages[0].hidden=false;current=0;built=false;contents[1].classList.remove('is-built');contents[1].querySelector('svg')?.remove();ended=false;paint();}fit();enter();},wheel:handleWheel,key(event){
     if(['ArrowDown','PageDown','ArrowUp','PageUp'].includes(event.key)){
       event.preventDefault();const direction=['ArrowDown','PageDown'].includes(event.key)?1:-1;
-      if(current===3&&(direction>0?lowfiBox.scrollTop+lowfiBox.clientHeight<lowfiBox.scrollHeight-2:lowfiBox.scrollTop>2))lowfiBox.scrollBy({top:direction*lowfiBox.clientHeight*.8,behavior:reduced?'instant':'smooth'});
+      const scrollBox=current===2?solutionBox:current===3?lowfiBox:null;
+      if(scrollBox&&(direction>0?scrollBox.scrollTop+scrollBox.clientHeight<scrollBox.scrollHeight-2:scrollBox.scrollTop>2))scrollBox.scrollBy({top:direction*scrollBox.clientHeight*.8,behavior:reduced?'instant':'smooth'});
       else advance(direction);
     }
   },destroy(){disposed=true;flipAnimations.forEach(item=>item.cancel());animation?.cancel();clearTimeout(timer);clearTimeout(wheelTimer);resize.disconnect();}};

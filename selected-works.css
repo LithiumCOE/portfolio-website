@@ -534,3 +534,7 @@
 @media(prefers-reduced-motion:reduce){.work-cover,.work-tile.has-cover::after,.work-tile.has-cover>h3,.work-tile.has-cover>p{transition:none}}
 
 .project-video video,.gallery-video video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
+
+/* Keep the solution at reading width; scroll its original tall layout. */
+.ga-solution-page .ga-chapter-fit{overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#c6b899 transparent}
+.ga-solution-track{position:relative;overflow:hidden;margin:0 auto}

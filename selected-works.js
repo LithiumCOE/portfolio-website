@@ -1,7 +1,7 @@
 import {mountToyotaMotion} from './toyota-motion.js?v=3';
 import {mountSaicHistoryMotion} from './saic-history-motion.js?v=7';
 import {mountProjectSlides} from './project-slides.js?v=ss-label-5';
-import {mountGaChapters} from './ga-chapters.js?v=original-lowfi-10';
+import {mountGaChapters} from './ga-chapters.js?v=solution-scroll-11';
 import {marked} from './vendor/marked.esm.js';
 import DOMPurify from './vendor/purify.es.js';
 
